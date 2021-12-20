@@ -11,3 +11,5 @@ The main functionalities are:
 - A POST API that the ADA-PIPE can utilize to validate its descriptor before sending it to the DEP-PIPE.
 - A POST API that is used to parse ADA-PIPE descriptor and translate to the one that DEP-PIPE can consume.
 - A Kafka consumer that can accept ADA-PIPE descriptors and translate to the one that DEP-PIPE can consume.
+
+The APIs are prune to changes until the finalization of the project, as also to support future possible functionalities.
