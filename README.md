@@ -2,7 +2,7 @@
 
 [![GitHub Issues](https://img.shields.io/github/issues/DataCloud-project/DEP-PIPE-translator.svg)](https://github.com/DataCloud-project/DEP-PIPE-translator/issues)
 
-# DEP-PIPE: Translator
+# DEP-PIPE Translator
 
 This sections describes the DEP-PIPE-translator as also its functionalities.
 
