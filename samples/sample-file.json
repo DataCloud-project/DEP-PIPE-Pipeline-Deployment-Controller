@@ -1,0 +1,349 @@
+{
+   "chunkName": "telluUseCase",
+   "pipelineName": "TelluPipeline",
+   "pipelineType": "streaming",
+   "terminationCheck": {
+       "httpURL": "yourservice.com/healthCheck"
+   },
+   "stepsList": [{
+           "name": "datagen-and-routing",
+           "architecture": "amd64",
+           "elasticityControllerMode": null,
+           "dockerImage": "demo-edge:latest",
+           "dockerRegistry": "registry.ubitech.eu/cs3/rnd/h2020-datacloud/datacloud-scenarios",
+           "dockerCredentialsUsing": true,
+           "dockerCustomRegistry": true,
+           "dockerUsername": "username",
+           "dockerPassword": "your-passsword-here",
+           "exposedInterfaces": [{
+               "name": "simpleInterf",
+               "port": "8080",
+               "interfaceType": "CORE",
+               "transmissionProtocol": "TCP",
+               "interfaceID": null,
+               "vna": null,
+               "dateCreated": null,
+               "lastModified": null
+           }],
+           "requiredInterfaces": null,
+           "requirement": {
+               "requirementID": null,
+               "dateCreated": null,
+               "lastModified": null,
+               "vCPUs": 1,
+               "ram": 2048,
+               "storage": 20,
+               "hypervisorType": "ESXI",
+               "gpuRequired": false
+           },
+           "healthCheck": {
+               "name": "datagenHelthcheck",
+               "httpURL": null,
+               "args": null,
+               "interval": 10,
+               "healthCheckID": null,
+               "httpRL": "yourservice.com/healthCheck",
+               "dateCreated": null,
+               "lastModified": null
+           },
+           "environmentalVariables": [{
+                   "environmentalVariableID": null,
+                   "key": "MQTT_PORT",
+                   "value": "1883",
+                   "dateCreated": null,
+                   "lastModified": null
+               },
+               {
+                   "environmentalVariableID": null,
+                   "key": "MQTT_PASS",
+                   "value": "your-passsword-here",
+                   "dateCreated": null,
+                   "lastModified": null
+               },
+               {
+                   "environmentalVariableID": null,
+                   "key": "MQTT_CLIENT_ID",
+                   "value": "TGWDATACLOUD3",
+                   "dateCreated": null,
+                   "lastModified": null
+               },
+               {
+                   "environmentalVariableID": null,
+                   "key": "MQTT_USERNAME",
+                   "value": "TGW003",
+                   "dateCreated": null,
+                   "lastModified": null
+               },
+               {
+                   "environmentalVariableID": null,
+                   "key": "MQTT_HOST",
+                   "value": "oslo.sct.sintef.no",
+                   "dateCreated": null,
+                   "lastModified": null
+               }
+           ],
+           "devices": [{
+               "deviceID": null,
+               "key": null,
+               "value": null,
+               "dateCreated": null,
+               "lastModified": null
+           }],
+           "elasticityController": "none",
+           "volumes": [{
+               "volumeID": null,
+               "dockerPath": null,
+               "isFile": null,
+               "dateCreated": null,
+               "lastModified": null
+           }],
+           "labels": [{
+               "labelID": 1,
+               "name": "pqt",
+               "dateCreated": null,
+               "lastModified": null
+           }],
+           "plugins": null,
+           "publicComponent": true,
+           "resource": "pao",
+           "networkModeHost": null,
+           "privilege": null,
+           "hostname": null,
+           "sharedMemorySize": null,
+           "command": null,
+           "capabilityAdds": [],
+           "capabilityDrops": [],
+           "ulimitMemlockSoft": null,
+           "ulimitMemlockHard": null,
+           "dockerExecutionUser": null,
+           "user": null,
+           "organization": null,
+           "dateCreated": null,
+           "lastModified": null
+       },
+       {
+           "name": "Storage",
+           "architecture": "amd64",
+           "elasticityControllerMode": null,
+           "dockerImage": "demo-api:latest",
+           "dockerRegistry": "registry.ubitech.eu/cs3/rnd/h2020-datacloud/datacloud-scenarios",
+           "dockerCredentialsUsing": true,
+           "dockerCustomRegistry": true,
+           "dockerUsername": "username",
+           "dockerPassword": "your-passsword-here",
+           "exposedInterfaces": [{
+               "name": "storageInterf",
+               "port": "8082",
+               "interfaceType": "ACCESS",
+               "transmissionProtocol": "TCP",
+               "interfaceID": null,
+               "vna": null,
+               "dateCreated": null,
+               "lastModified": null
+           }],
+           "requiredInterfaces": [{
+               "friendlyName": "StoragereqInterface",
+               "interfaceObj": {
+                   "name": "simpleInterf",
+                   "port": "8080",
+                   "vna": null,
+                   "interfaceType": "CORE",
+                   "transmissionProtocol": "TCP"
+               },
+               "dateCreated": null,
+               "lastModified": null
+           }],
+           "requirement": {
+               "vCPUs": 1,
+               "ram": 2048,
+               "storage": 20,
+               "hypervisorType": "ESXI",
+               "gpuRequired": false,
+               "requirementID": null,
+               "dateCreated": null,
+               "lastModified": null
+           },
+           "healthCheck": {
+               "name": "storageHelthcheck",
+               "httpURL": null,
+               "args": null,
+               "interval": 10,
+               "healthCheckID": null,
+               "httpRL": "yourservice.com/healthCheck",
+               "dateCreated": null,
+               "lastModified": null
+           },
+           "environmentalVariables": [{
+                   "environmentalVariableID": null,
+                   "key": "RABBITMQ_PASSWORD",
+                   "value": "your-passsword-here"
+               },
+               {
+                   "environmentalVariableID": null,
+                   "key": "RABBITMQ_USERNAME",
+                   "value": "demoapi"
+               }, {
+                   "key": "RABBITMQ_HOST",
+                   "value": "oslo.sct.sintef.no:5672"
+               },
+               {
+                   "key": "FHIR_URL",
+                   "value": "https://tellucloud-fhir.sintef.cloud"
+               }
+           ],
+           "devices": [{
+               "deviceID": null,
+               "key": null,
+               "value": null,
+               "dateCreated": null,
+               "lastModified": null
+           }],
+           "elasticityController": "none",
+           "volumes": [{
+               "volumeID": null,
+               "dockerPath": null,
+               "isFile": null,
+               "dateCreated": null,
+               "lastModified": null
+           }],
+           "labels": [{
+               "labelID": 1,
+               "name": "pqt",
+               "dateCreated": null,
+               "lastModified": null
+           }],
+           "plugins": null,
+           "publicComponent": true,
+           "networkModeHost": null,
+           "privilege": null,
+           "hostname": null,
+           "sharedMemorySize": null,
+           "command": null,
+           "capabilityAdds": [],
+           "capabilityDrops": [
+               "SETPCAP"
+           ],
+           "ulimitMemlockSoft": null,
+           "ulimitMemlockHard": null,
+           "dockerExecutionUser": null,
+           "user": null,
+           "organization": null,
+           "dateCreated": null,
+           "lastModified": null
+       },
+       {
+           "name": "ApplicationLogic",
+           "architecture": "amd64",
+           "elasticityControllerMode": null,
+           "dockerImage": "demo-application-logic:latest",
+           "dockerRegistry": "registry.ubitech.eu/cs3/rnd/h2020-datacloud/datacloud-scenarios",
+           "dockerCredentialsUsing": true,
+           "dockerCustomRegistry": true,
+           "dockerUsername": "username",
+           "dockerPassword": "your-passsword-here",
+           "exposedInterfaces": [{
+               "name": "applicationLogicInterf",
+               "port": "8089",
+               "interfaceType": "ACCESS",
+               "transmissionProtocol": "TCP",
+               "interfaceID": null,
+               "vna": null,
+               "dateCreated": null,
+               "lastModified": null
+           }],
+           "requiredInterfaces":[ {
+               "friendlyName": "applicationLogicReqInterf",
+               "interfaceObj": {
+                   "interfaceID": null,
+                   "name": "storageInterf",
+                   "port": "8082",
+                   "vna": null,
+                   "interfaceType": "ACCESS",
+                   "transmissionProtocol": "TCP",
+                   "dateCreated": null,
+                   "lastModified": null
+               },
+               "dateCreated": null,
+               "lastModified": null
+           }],
+           "requirement": {
+               "vCPUs": 1,
+               "ram": 2048,
+               "storage": 20,
+               "hypervisorType": "ESXI",
+               "gpuRequired": false,
+               "requirementID": null,
+               "dateCreated": null,
+               "lastModified": null
+           },
+           "healthCheck": {
+               "name": "applicationLogicHelthcheck",
+               "httpURL": null,
+               "args": null,
+               "interval": 10,
+               "healthCheckID": null,
+               "httpRL": "yourservice.com/healthCheck",
+               "dateCreated": null,
+               "lastModified": null
+           },
+           "environmentalVariables": [{
+                   "environmentalVariableID": null,
+                   "key": "RABBITMQ_PASSWORD",
+                   "value": "your-passsword-here"
+ 
+               },
+               {
+                   "environmentalVariableID": null,
+                   "key": "RABBITMQ_USERNAME",
+                   "value": "demoapplicationlogic"
+               }, {
+                   "key": "RABBITMQ_HOST",
+                   "value": "oslo.sct.sintef.no:5672"
+               },
+               {
+                   "key": "FHIR_URL",
+                   "value": "https://tellucloud-fhir.sintef.cloud/"
+               }
+           ],
+           "devices": [{
+               "deviceID": null,
+               "key": null,
+               "value": null,
+               "dateCreated": null,
+               "lastModified": null
+           }],
+           "elasticityController": "none",
+           "volumes": [{
+               "volumeID": null,
+               "dockerPath": null,
+               "isFile": null,
+               "dateCreated": null,
+               "lastModified": null
+           }],
+           "labels": [{
+               "labelID": 1,
+               "name": "pqt",
+               "dateCreated": null,
+               "lastModified": null
+           }],
+           "plugins": null,
+           "publicComponent": true,
+           "networkModeHost": null,
+           "privilege": null,
+           "hostname": null,
+           "sharedMemorySize": null,
+           "command": null,
+           "capabilityAdds": [],
+           "capabilityDrops": [
+               "SETPCAP"
+           ],
+           "ulimitMemlockSoft": null,
+           "ulimitMemlockHard": null,
+           "dockerExecutionUser": null,
+           "user": null,
+           "organization": null,
+           "dateCreated": null,
+           "lastModified": null
+       }
+   ]
+}

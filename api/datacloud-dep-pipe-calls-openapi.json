@@ -1,0 +1,5951 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"title": "Maestro API calls - Backend [backend] Module",
+		"description": "Documentation for maestro backend [backend] module",
+		"version": "v1.6.0"
+	},
+	"servers": [{
+		"url": "http://localhost:8080",
+		"description": "Generated server url"
+	}],
+	"paths": {
+			"/api/v1/docker/credentials": {
+			"post": {
+				"tags": ["docker-controller"],
+				"operationId": "credentialsValidator",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DockerTO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RestResponseSPASerializable"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/datacloud": {
+			"post": {
+				"tags": ["datacloud-controller"],
+				"operationId": "createStep",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DatacloudStepTo"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RestResponseSPASerializable"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/datacloud/{id}": {
+			"delete": {
+				"tags": ["datacloud-controller"],
+				"operationId": "deletePipeline",
+				"parameters": [{
+					"name": "id",
+					"in": "path",
+					"required": true,
+					"schema": {
+						"type": "integer",
+						"format": "int64"
+					}
+				}],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RestResponseSPASerializable"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"RuleDto": {
+				"type": "object",
+				"properties": {
+					"sgi": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"type": {
+						"type": "string"
+					},
+					"points": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"step": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"rule": {
+						"type": "string"
+					}
+				}
+			},
+			"RulesDto": {
+				"type": "object",
+				"properties": {
+					"rules": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/RuleDto"
+						}
+					}
+				}
+			},
+			"RestResponseSPASerializable": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"type": "object"
+					}
+				}
+			},
+			"Component": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"hexID": {
+						"type": "string"
+					},
+					"iconContentType": {
+						"type": "string"
+					},
+					"iconFilename": {
+						"type": "string"
+					},
+					"iconPath": {
+						"type": "string"
+					},
+					"architecture": {
+						"type": "string"
+					},
+					"elasticityControllerMode": {
+						"type": "string"
+					},
+					"iconContent": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"format": "byte"
+						}
+					},
+					"iconBase64": {
+						"type": "string"
+					},
+					"dockerImage": {
+						"type": "string"
+					},
+					"dockerRegistry": {
+						"type": "string"
+					},
+					"dockerCredentialsUsing": {
+						"type": "boolean"
+					},
+					"dockerCustomRegistry": {
+						"type": "boolean"
+					},
+					"dockerUsername": {
+						"type": "string"
+					},
+					"dockerPassword": {
+						"type": "string",
+						"writeOnly": true
+					},
+					"exposedInterfaces": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Interface"
+						}
+					},
+					"requiredInterfaces": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/GraphLink"
+						}
+					},
+					"requirement": {
+						"$ref": "#/components/schemas/Requirement"
+					},
+					"healthCheck": {
+						"$ref": "#/components/schemas/HealthCheck"
+					},
+					"environmentalVariables": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/EnvironmentalVariable"
+						}
+					},
+					"devices": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Device"
+						}
+					},
+					"elasticityController": {
+						"type": "string"
+					},
+					"volumes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Volume"
+						}
+					},
+					"labels": {
+						"uniqueItems": true,
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Label"
+						}
+					},
+					"plugins": {
+						"uniqueItems": true,
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Plugin"
+						}
+					},
+					"publicComponent": {
+						"type": "boolean"
+					},
+					"networkModeHost": {
+						"type": "boolean"
+					},
+					"privilege": {
+						"type": "boolean"
+					},
+					"hostname": {
+						"type": "string"
+					},
+					"sharedMemorySize": {
+						"type": "string"
+					},
+					"command": {
+						"type": "string"
+					},
+					"capabilityDrops": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"enum": ["SETPCAP", "MKNOD", "AUDIT_WRITE", "CHOWN", "NET_RAW", "DAC_OVERRIDE", "FOWNER", "FSETID", "KILL", "SETGID", "SETUID", "NET_BIND_SERVICE", "SYS_CHROOT", "SETFCAP", "ALL"]
+						}
+					},
+					"capabilityAdds": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"enum": ["SYS_MODULE", "SYS_RAWIO", "SYS_PACCT", "SYS_ADMIN", "SYS_NICE", "SYS_RESOURCE", "SYS_TIME", "SYS_TTY_CONFIG", "AUDIT_CONTROL", "MAC_ADMIN", "MAC_OVERRIDE", "NET_ADMIN", "SYSLOG", "DAC_READ_SEARCH", "LINUX_IMMUTABLE", "NET_BROADCAST", "IPC_LOCK", "IPC_OWNER", "SYS_PTRACE", "SYS_BOOT", "LEASE", "WAKE_ALARM", "BLOCK_SUSPEND", "ALL"]
+						}
+					},
+					"ulimitMemlockSoft": {
+						"type": "string"
+					},
+					"ulimitMemlockHard": {
+						"type": "string"
+					},
+					"dockerExecutionUser": {
+						"type": "string"
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					},
+					"organization": {
+						"$ref": "#/components/schemas/Organization"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"environmentalVariableIDs": {
+						"type": "array",
+						"items": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					"interfaceIDs": {
+						"type": "array",
+						"items": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					"graphLinkIDs": {
+						"type": "array",
+						"items": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					"volumeIDs": {
+						"type": "array",
+						"items": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					"deviceIDs": {
+						"type": "array",
+						"items": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				}
+			},
+			"Country": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"alpha2": {
+						"type": "string"
+					},
+					"alpha3": {
+						"type": "string"
+					},
+					"countryCode": {
+						"type": "string"
+					},
+					"iso3166": {
+						"type": "string"
+					},
+					"region": {
+						"type": "string"
+					},
+					"subRegion": {
+						"type": "string"
+					},
+					"regionCode": {
+						"type": "string"
+					},
+					"subRegionCode": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"Device": {
+				"type": "object",
+				"properties": {
+					"deviceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"component": {
+						"$ref": "#/components/schemas/Component"
+					},
+					"key": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"EnvironmentalVariable": {
+				"type": "object",
+				"properties": {
+					"environmentalVariableID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"component": {
+						"$ref": "#/components/schemas/Component"
+					},
+					"key": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"GraphLink": {
+				"type": "object",
+				"properties": {
+					"graphLinkID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"component": {
+						"$ref": "#/components/schemas/Component"
+					},
+					"friendlyName": {
+						"type": "string"
+					},
+					"interfaceObj": {
+						"$ref": "#/components/schemas/Interface"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"HealthCheck": {
+				"type": "object",
+				"properties": {
+					"healthCheckID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"component": {
+						"$ref": "#/components/schemas/Component"
+					},
+					"name": {
+						"type": "string"
+					},
+					"httpURL": {
+						"type": "string"
+					},
+					"args": {
+						"type": "string"
+					},
+					"interval": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"Interface": {
+				"type": "object",
+				"properties": {
+					"interfaceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"component": {
+						"$ref": "#/components/schemas/Component"
+					},
+					"name": {
+						"type": "string"
+					},
+					"port": {
+						"type": "string"
+					},
+					"vna": {
+						"type": "string"
+					},
+					"interfaceType": {
+						"type": "string"
+					},
+					"transmissionProtocol": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"Label": {
+				"type": "object",
+				"properties": {
+					"labelID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"Metric": {
+				"type": "object",
+				"properties": {
+					"metricID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"plugin": {
+						"$ref": "#/components/schemas/Plugin"
+					},
+					"name": {
+						"type": "string"
+					},
+					"friendlyName": {
+						"type": "string"
+					},
+					"unit": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"Organization": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"users": {
+						"type": "array",
+						"writeOnly": true,
+						"items": {
+							"$ref": "#/components/schemas/User"
+						}
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"Plugin": {
+				"type": "object",
+				"properties": {
+					"pluginID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"moduleName": {
+						"type": "string"
+					},
+					"downloadURL": {
+						"type": "string"
+					},
+					"pluginType": {
+						"type": "string"
+					},
+					"port": {
+						"type": "string"
+					},
+					"endpoint": {
+						"type": "string"
+					},
+					"publicPlugin": {
+						"type": "boolean"
+					},
+					"immutablePlugin": {
+						"type": "boolean"
+					},
+					"defaultPlugin": {
+						"type": "boolean"
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					},
+					"organization": {
+						"$ref": "#/components/schemas/Organization"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"metrics": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Metric"
+						}
+					},
+					"metricsCounter": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"metricIDs": {
+						"type": "array",
+						"items": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				}
+			},
+			"Requirement": {
+				"type": "object",
+				"properties": {
+					"requirementID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"component": {
+						"$ref": "#/components/schemas/Component"
+					},
+					"getvCPUs": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"ram": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"storage": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"hypervisorType": {
+						"type": "string"
+					},
+					"gpuRequired": {
+						"type": "boolean"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"User": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"username": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string",
+						"writeOnly": true
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					},
+					"country": {
+						"$ref": "#/components/schemas/Country"
+					},
+					"role": {
+						"type": "string"
+					},
+					"notificationWebEnabled": {
+						"type": "boolean"
+					},
+					"notificationEmailEnabled": {
+						"type": "boolean"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"firstLogin": {
+						"type": "boolean"
+					},
+					"enabled": {
+						"type": "boolean"
+					},
+					"organization": {
+						"$ref": "#/components/schemas/Organization"
+					},
+					"newPassword": {
+						"type": "string",
+						"writeOnly": true
+					},
+					"verifyPassword": {
+						"type": "string",
+						"writeOnly": true
+					},
+					"currentPassword": {
+						"type": "string",
+						"writeOnly": true
+					},
+					"admin": {
+						"type": "boolean"
+					},
+					"organizationAdmin": {
+						"type": "boolean"
+					}
+				}
+			},
+			"Volume": {
+				"type": "object",
+				"properties": {
+					"volumeID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"component": {
+						"$ref": "#/components/schemas/Component"
+					},
+					"dockerPath": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"file": {
+						"type": "boolean"
+					}
+				}
+			},
+			"Vulnerability": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"vulnerabilityType": {
+						"type": "string",
+						"enum": ["BYPASS_A_RESTRICTION_OR_SIMILAR", "CROSS_SITE_SCRIPTING", "DENIAL_OF_SERVICE", "DIRECTORY_TRAVERSAL", "EXECUTE_ARBITARY_CODE_ON_VULNERABLE_SYSTEM", "GAIN_PRIVILEGES", "HTTP_RESPONSE_SPLITTING", "MEMORY_CORRUPTION", "OBTAIN_INFORMATION", "OVERFLOW_VULNERABILITY", "CROSS_SITE_REQUEST_FORGERY", "FILE_INCLUSION", "SQL_INJECTION"]
+					},
+					"confidentialityLevel": {
+						"type": "string",
+						"enum": ["HIGH", "MEDIUM", "LOW"]
+					},
+					"authenticationLevel": {
+						"type": "string",
+						"enum": ["HIGH", "MEDIUM", "LOW"]
+					},
+					"accessComplexityLevel": {
+						"type": "string",
+						"enum": ["HIGH", "MEDIUM", "LOW"]
+					},
+					"cvssScore": {
+						"type": "number",
+						"format": "double"
+					},
+					"component": {
+						"$ref": "#/components/schemas/Component"
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					},
+					"organization": {
+						"$ref": "#/components/schemas/Organization"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"RestResponseSPAVulnerability": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"$ref": "#/components/schemas/Vulnerability"
+					}
+				}
+			},
+			"Pageable": {
+				"type": "object",
+				"properties": {
+					"page": {
+						"minimum": 0,
+						"type": "integer",
+						"format": "int32"
+					},
+					"size": {
+						"minimum": 1,
+						"type": "integer",
+						"format": "int32"
+					},
+					"sort": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"RestResponseSPAVulnerabilitiesResponse": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"$ref": "#/components/schemas/VulnerabilitiesResponse"
+					}
+				}
+			},
+			"VulnerabilitiesResponse": {
+				"type": "object",
+				"properties": {
+					"vulnerabilities": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Vulnerability"
+						}
+					}
+				}
+			},
+			"RestResponseSPALong": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"type": "integer",
+						"format": "int64"
+					}
+				}
+			},
+			"RestResponseSPAUser": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"$ref": "#/components/schemas/User"
+					}
+				}
+			},
+			"Token": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"token": {
+						"type": "string"
+					},
+					"expirationDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					},
+					"organization": {
+						"$ref": "#/components/schemas/Organization"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"SSHKey": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"friendlyName": {
+						"type": "string"
+					},
+					"sshKey": {
+						"type": "string"
+					},
+					"defaultSSH": {
+						"type": "boolean"
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					},
+					"organization": {
+						"$ref": "#/components/schemas/Organization"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"RestResponseSPASSHKey": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"$ref": "#/components/schemas/SSHKey"
+					}
+				}
+			},
+			"RestResponseSPAString": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"type": "string"
+					}
+				}
+			},
+			"NetworkPolicyRequest": {
+				"type": "object",
+				"properties": {
+					"componentNodeInstanceHexId": {
+						"type": "string"
+					},
+					"ip": {
+						"type": "string"
+					}
+				}
+			},
+			"NetworkPolicyNodeRequest": {
+				"type": "object",
+				"properties": {
+					"componentNodeInstanceHexId": {
+						"type": "string"
+					},
+					"ip": {
+						"type": "string"
+					},
+					"nodeName": {
+						"type": "string"
+					}
+				}
+			},
+			"OrchestratorScalingRequest": {
+				"type": "object",
+				"properties": {
+					"graphID": {
+						"type": "string"
+					},
+					"graphHexID": {
+						"type": "string"
+					},
+					"graphName": {
+						"type": "string"
+					},
+					"graphInstanceID": {
+						"type": "string"
+					},
+					"graphInstanceHexID": {
+						"type": "string"
+					},
+					"graphInstanceName": {
+						"type": "string"
+					},
+					"componentNodeInstanceID": {
+						"type": "string"
+					},
+					"componentNodeInstanceHexID": {
+						"type": "string"
+					},
+					"componentNodeInstanceName": {
+						"type": "string"
+					},
+					"componentNodeID": {
+						"type": "string"
+					},
+					"componentNodeHexID": {
+						"type": "string"
+					},
+					"componentNodeName": {
+						"type": "string"
+					},
+					"numberOfWorkers": {
+						"type": "integer",
+						"format": "int32"
+					}
+				}
+			},
+			"OrchestratorApplicationInstance": {
+				"type": "object",
+				"properties": {
+					"graphID": {
+						"type": "string"
+					},
+					"graphHexID": {
+						"type": "string"
+					},
+					"graphName": {
+						"type": "string"
+					},
+					"graphInstanceID": {
+						"type": "string"
+					},
+					"graphInstanceHexID": {
+						"type": "string"
+					},
+					"graphInstanceName": {
+						"type": "string"
+					},
+					"ipv6Enabled": {
+						"type": "boolean"
+					},
+					"telco5GEnabled": {
+						"type": "boolean"
+					},
+					"callbackURL": {
+						"type": "string"
+					},
+					"orchestratorKafkaConfig": {
+						"$ref": "#/components/schemas/OrchestratorKafkaConfig"
+					},
+					"providerAuthenticationDetails": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/OrchestratorProviderAuthenticationDetails"
+						}
+					},
+					"services": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/OrchestratorComponentNodeInstance"
+						}
+					}
+				}
+			},
+			"OrchestratorComponentNodeInstance": {
+				"type": "object",
+				"properties": {
+					"componentNodeInstanceID": {
+						"type": "string"
+					},
+					"componentNodeInstanceHexID": {
+						"type": "string"
+					},
+					"componentNodeInstanceName": {
+						"type": "string"
+					},
+					"componentNodeID": {
+						"type": "string"
+					},
+					"componentNodeHexID": {
+						"type": "string"
+					},
+					"componentNodeName": {
+						"type": "string"
+					},
+					"providerID": {
+						"type": "string"
+					},
+					"flavorID": {
+						"type": "string"
+					},
+					"image": {
+						"type": "string"
+					},
+					"registry": {
+						"type": "string"
+					},
+					"sshKey": {
+						"type": "string"
+					},
+					"statusIDS": {
+						"type": "boolean"
+					},
+					"statusIPS": {
+						"type": "boolean"
+					},
+					"minimumWorkers": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"maximumWorkers": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"command": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"dependsOn": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/OrchestratorDependency"
+						}
+					},
+					"environmentalVariables": {
+						"type": "object",
+						"additionalProperties": {
+							"type": "string"
+						}
+					},
+					"devices": {
+						"type": "object",
+						"additionalProperties": {
+							"type": "string"
+						}
+					},
+					"volumes": {
+						"type": "object",
+						"additionalProperties": {
+							"type": "string"
+						}
+					},
+					"ports": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/OrchestratorPort"
+						}
+					},
+					"loadBalancer": {
+						"type": "boolean"
+					},
+					"lambdaProxy": {
+						"type": "boolean"
+					},
+					"monitoringElasticity": {
+						"$ref": "#/components/schemas/OrchestratorElasticity"
+					},
+					"healthCheck": {
+						"$ref": "#/components/schemas/OrchestratorHealthCheck"
+					},
+					"flavor": {
+						"$ref": "#/components/schemas/OrchestratorFlavor"
+					},
+					"locations": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/OrchestratorLocation"
+						}
+					},
+					"plugins": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/OrchestratorPlugin"
+						}
+					},
+					"capabilityAdds": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"capabilityDrops": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"networkModeHost": {
+						"type": "boolean"
+					},
+					"privilege": {
+						"type": "boolean"
+					},
+					"hostname": {
+						"type": "string"
+					},
+					"dnsEntry": {
+						"type": "string"
+					},
+					"sharedMemorySize": {
+						"type": "string"
+					},
+					"dockerUsername": {
+						"type": "string"
+					},
+					"dockerPassword": {
+						"type": "string"
+					},
+					"controllerMetadata": {
+						"type": "object"
+					},
+					"elasticityControllerAdapterImplementation": {
+						"type": "string"
+					},
+					"balancedByComponentNodeHexID": {
+						"type": "string"
+					},
+					"ulimitMemlockSoft": {
+						"type": "string"
+					},
+					"ulimitMemlockHard": {
+						"type": "string"
+					},
+					"dockerExecutionUser": {
+						"type": "string"
+					},
+					"hasEnableSecurity": {
+						"type": "boolean"
+					},
+					"produceHashes": {
+						"type": "boolean"
+					},
+					"statusSoc": {
+						"type": "boolean"
+					},
+					"controller": {
+						"type": "boolean"
+					}
+				}
+			},
+			"OrchestratorDependency": {
+				"type": "object",
+				"properties": {
+					"dependency": {
+						"type": "string"
+					},
+					"vna": {
+						"type": "string"
+					},
+					"networkAttachmentPoint": {
+						"type": "string"
+					}
+				}
+			},
+			"OrchestratorElasticity": {
+				"type": "object",
+				"properties": {
+					"profile": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					}
+				}
+			},
+			"OrchestratorFlavor": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"getvCPUs": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"ram": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"storage": {
+						"type": "integer",
+						"format": "int32"
+					}
+				}
+			},
+			"OrchestratorHealthCheck": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"args": {
+						"type": "string"
+					},
+					"httpURL": {
+						"type": "string"
+					},
+					"interval": {
+						"type": "string"
+					}
+				}
+			},
+			"OrchestratorKafkaConfig": {
+				"type": "object",
+				"properties": {
+					"kafkaServer": {
+						"type": "string"
+					},
+					"agentIpsConfigTopic": {
+						"type": "string"
+					},
+					"agentIdsConfigTopic": {
+						"type": "string"
+					},
+					"agentIdsAlertTopic": {
+						"type": "string"
+					},
+					"agentSecurityConfigTopic": {
+						"type": "string"
+					},
+					"agentSecurityConfigResultTopic": {
+						"type": "string"
+					},
+					"agentSocConfigTopic": {
+						"type": "string"
+					},
+					"orchestratorSecurityConfigResultTopic": {
+						"type": "string"
+					}
+				}
+			},
+			"OrchestratorLocation": {
+				"type": "object",
+				"properties": {
+					"country": {
+						"type": "string"
+					},
+					"region": {
+						"type": "string"
+					}
+				}
+			},
+			"OrchestratorPlugin": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"moduleName": {
+						"type": "string"
+					},
+					"downloadURL": {
+						"type": "string"
+					},
+					"pluginType": {
+						"type": "string"
+					},
+					"port": {
+						"type": "string"
+					},
+					"endpoint": {
+						"type": "string"
+					},
+					"defaultPlugin": {
+						"type": "boolean"
+					},
+					"immutablePlugin": {
+						"type": "boolean"
+					},
+					"disabledPlugin": {
+						"type": "boolean"
+					}
+				}
+			},
+			"OrchestratorPort": {
+				"type": "object",
+				"properties": {
+					"target": {
+						"type": "string"
+					},
+					"published": {
+						"type": "string"
+					},
+					"protocol": {
+						"type": "string"
+					},
+					"mode": {
+						"type": "string"
+					},
+					"vna": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"networkAttachmentPoint": {
+						"type": "string"
+					}
+				}
+			},
+			"OrchestratorProviderAuthenticationDetails": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"adapterType": {
+						"type": "string"
+					},
+					"adapterImplementation": {
+						"type": "string"
+					},
+					"endpoint": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"publicKey": {
+						"type": "string"
+					},
+					"privateKey": {
+						"type": "string"
+					},
+					"meshIdentifier": {
+						"type": "string"
+					},
+					"imageID": {
+						"type": "string"
+					},
+					"networkID": {
+						"type": "string"
+					},
+					"proxy": {
+						"type": "string"
+					},
+					"region": {
+						"type": "string"
+					},
+					"domain": {
+						"type": "string"
+					},
+					"project": {
+						"type": "string"
+					},
+					"publicNetwork": {
+						"type": "string"
+					}
+				}
+			},
+			"RestResponseSPAOrchestratorApplicationInstance": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"$ref": "#/components/schemas/OrchestratorApplicationInstance"
+					}
+				}
+			},
+			"Provider": {
+				"type": "object",
+				"properties": {
+					"providerID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"providerType": {
+						"$ref": "#/components/schemas/ProviderType"
+					},
+					"endpoint": {
+						"type": "string"
+					},
+					"proxy": {
+						"type": "string"
+					},
+					"enabled": {
+						"type": "boolean"
+					},
+					"username": {
+						"type": "string"
+					},
+					"providerCredentialsChange": {
+						"type": "boolean"
+					},
+					"password": {
+						"type": "string",
+						"writeOnly": true
+					},
+					"publicKey": {
+						"type": "string"
+					},
+					"privateKey": {
+						"type": "string"
+					},
+					"imageID": {
+						"type": "string"
+					},
+					"networkID": {
+						"type": "string"
+					},
+					"externalNetworkID": {
+						"type": "string"
+					},
+					"domain": {
+						"type": "string"
+					},
+					"meshIdentifier": {
+						"type": "string"
+					},
+					"project": {
+						"type": "string"
+					},
+					"publicNetwork": {
+						"type": "string"
+					},
+					"internalProvider": {
+						"type": "boolean"
+					},
+					"defaultProvider": {
+						"type": "boolean"
+					},
+					"regions": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Region"
+						}
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					},
+					"organization": {
+						"$ref": "#/components/schemas/Organization"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"providerQuota": {
+						"$ref": "#/components/schemas/ProviderQuota"
+					},
+					"networkModeHost": {
+						"type": "boolean"
+					},
+					"regionIDs": {
+						"type": "array",
+						"items": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				}
+			},
+			"ProviderQuota": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"provider": {
+						"$ref": "#/components/schemas/Provider"
+					},
+					"runningInstances": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"maxInstances": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"instancesUtilization": {
+						"type": "number",
+						"format": "double"
+					},
+					"usedVirtualCPUs": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"maxVirtualCPUs": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"virtualCPUsUtilization": {
+						"type": "number",
+						"format": "double"
+					},
+					"usedMemory": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"maxMemory": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"memoryUtilization": {
+						"type": "number",
+						"format": "double"
+					},
+					"usedFloatingIPs": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"claimedFloatingIPs": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"floatingIPsConsumption": {
+						"type": "number",
+						"format": "double"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"ProviderType": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"friendlyName": {
+						"type": "string"
+					},
+					"adapterImplementation": {
+						"type": "string"
+					},
+					"enabled": {
+						"type": "boolean"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"providerName": {
+						"type": "string",
+						"enum": ["USER_DEFINED", "POLICY_DEFINED", "OPENSTACK", "AWS", "GCC", "FIFTH_GENERATION_TELCO_PROVIDER", "IOT_GATEWAY", "KUBERNETES", "RAINBOW_KUBERNETES", "FIVE_G_INDUCE_SLICE", "FIFTH_GENERATION_OSS_KUBERNETES_PROVIDER", "NEXTWORKS_OSS"]
+					}
+				}
+			},
+			"Region": {
+				"type": "object",
+				"properties": {
+					"regionID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"provider": {
+						"$ref": "#/components/schemas/Provider"
+					},
+					"name": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"RestResponseSPARegion": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"$ref": "#/components/schemas/Region"
+					}
+				}
+			},
+			"RadioServiceType": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"serviceType": {
+						"type": "string"
+					},
+					"sstValue": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"characteristics": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"RestResponseSPARadioServiceType": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"$ref": "#/components/schemas/RadioServiceType"
+					}
+				}
+			},
+			"QI": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"qiValue": {
+						"type": "string"
+					},
+					"resourceType": {
+						"type": "string"
+					},
+					"defaultPriorityLevel": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"packetDelayBudget": {
+						"type": "number",
+						"format": "double"
+					},
+					"packetErrorRate": {
+						"type": "number",
+						"format": "double"
+					},
+					"defaultMaximumDataBurstVolume": {
+						"type": "string"
+					},
+					"defaultAveragingWindow": {
+						"type": "string"
+					},
+					"services": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"RestResponseSPAQI": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"$ref": "#/components/schemas/QI"
+					}
+				}
+			},
+			"RestResponseSPAProviderType": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"$ref": "#/components/schemas/ProviderType"
+					}
+				}
+			},
+			"RestResponseSPAProvider": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"$ref": "#/components/schemas/Provider"
+					}
+				}
+			},
+			"RestResponseSPAPlugin": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"$ref": "#/components/schemas/Plugin"
+					}
+				}
+			},
+			"RestResponseSPAOrganization": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"$ref": "#/components/schemas/Organization"
+					}
+				}
+			},
+			"RestResponse": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "object"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"type": "object"
+					}
+				}
+			},
+			"IDRule": {
+				"type": "object",
+				"properties": {
+					"ruleID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"idRuleSet": {
+						"$ref": "#/components/schemas/IDRuleSet"
+					},
+					"name": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"IDRuleSet": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					},
+					"organization": {
+						"$ref": "#/components/schemas/Organization"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"getiDRules": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/IDRule"
+						}
+					},
+					"predefinedIDRuleSet": {
+						"type": "boolean"
+					},
+					"rulesCounter": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"publicIDRuleSet": {
+						"type": "boolean"
+					},
+					"ruleIDs": {
+						"type": "array",
+						"items": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				}
+			},
+			"RestResponseSPAIDRuleSet": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"$ref": "#/components/schemas/IDRuleSet"
+					}
+				}
+			},
+			"FileTO": {
+				"type": "object",
+				"properties": {
+					"type": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"path": {
+						"type": "string"
+					},
+					"size": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"dateModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"RestResponseSPAUIEnum": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"$ref": "#/components/schemas/UIEnum"
+					}
+				}
+			},
+			"UIEnum": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"friendlyName": {
+						"type": "string"
+					}
+				}
+			},
+			"DomainNameTO": {
+				"type": "object",
+				"properties": {
+					"domainNameID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"prefix": {
+						"type": "string"
+					},
+					"suffix": {
+						"type": "string"
+					},
+					"domain": {
+						"type": "string"
+					},
+					"associate": {
+						"type": "boolean"
+					},
+					"applicationInstanceId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"applicationInstanceName": {
+						"type": "string"
+					},
+					"applicationInstanceHexId": {
+						"type": "string"
+					},
+					"componentNodeInstanceId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"componentNodeInstanceName": {
+						"type": "string"
+					},
+					"componentNodeInstanceHexId": {
+						"type": "string"
+					},
+					"componentNodeInstanceIPAddress": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"Application": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"hexID": {
+						"type": "string"
+					},
+					"componentNodes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ComponentNode"
+						}
+					},
+					"graphLinkNodes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/GraphLinkNode"
+						}
+					},
+					"publicApplication": {
+						"type": "boolean"
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					},
+					"organization": {
+						"$ref": "#/components/schemas/Organization"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"ApplicationInstance": {
+				"type": "object",
+				"properties": {
+					"applicationInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"hexID": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"application": {
+						"$ref": "#/components/schemas/Application"
+					},
+					"provider": {
+						"$ref": "#/components/schemas/Provider"
+					},
+					"runtimePolicies": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/RuntimePolicy"
+						}
+					},
+					"securityPolicies": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SecurityPolicy"
+						}
+					},
+					"securityConfigurations": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SecurityConfiguration"
+						}
+					},
+					"socPolicies": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SocPolicy"
+						}
+					},
+					"profiles": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Profile"
+						}
+					},
+					"componentNodeInstances": {
+						"uniqueItems": true,
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ComponentNodeInstance"
+						}
+					},
+					"slice": {
+						"$ref": "#/components/schemas/Slice"
+					},
+					"constraints": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Constraint"
+						}
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					},
+					"organization": {
+						"$ref": "#/components/schemas/Organization"
+					},
+					"overlay": {
+						"type": "boolean"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"dateDeployed": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"deploymentTimestamp": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"status": {
+						"type": "string"
+					},
+					"grafanaDashboardUUID": {
+						"type": "string"
+					},
+					"applicationInstanceQuota": {
+						"$ref": "#/components/schemas/ApplicationInstanceQuota"
+					},
+					"graphLinkNodeInstances": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/GraphLinkNodeInstance"
+						}
+					},
+					"spiderRules": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SpiderRule"
+						}
+					},
+					"applicationName": {
+						"type": "string"
+					}
+				}
+			},
+			"ApplicationInstanceQuota": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"applicationInstance": {
+						"$ref": "#/components/schemas/ApplicationInstance"
+					},
+					"virtualCPUs": {
+						"type": "string"
+					},
+					"memory": {
+						"type": "string"
+					},
+					"storage": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"ComponentNode": {
+				"type": "object",
+				"properties": {
+					"componentNodeID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"graphNodeID": {
+						"type": "string"
+					},
+					"hexID": {
+						"type": "string"
+					},
+					"application": {
+						"$ref": "#/components/schemas/Application"
+					},
+					"name": {
+						"type": "string"
+					},
+					"component": {
+						"$ref": "#/components/schemas/Component"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"componentName": {
+						"type": "string"
+					}
+				}
+			},
+			"ComponentNodeInstance": {
+				"type": "object",
+				"properties": {
+					"componentNodeInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"hexID": {
+						"type": "string"
+					},
+					"componentNode": {
+						"$ref": "#/components/schemas/ComponentNode"
+					},
+					"applicationInstance": {
+						"$ref": "#/components/schemas/ApplicationInstance"
+					},
+					"sshKey": {
+						"$ref": "#/components/schemas/SSHKey"
+					},
+					"provider": {
+						"$ref": "#/components/schemas/Provider"
+					},
+					"flavorInstance": {
+						"$ref": "#/components/schemas/FlavorInstance"
+					},
+					"healthCheckInstance": {
+						"$ref": "#/components/schemas/HealthCheckInstance"
+					},
+					"locationInstances": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/LocationInstance"
+						}
+					},
+					"command": {
+						"type": "string"
+					},
+					"pluginInstances": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/PluginInstance"
+						}
+					},
+					"getiDRuleSetInstances": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/IDRuleSetInstance"
+						}
+					},
+					"environmentalVariableInstances": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/EnvironmentalVariableInstance"
+						}
+					},
+					"deviceInstances": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/DeviceInstance"
+						}
+					},
+					"interfaceInstances": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/InterfaceInstance"
+						}
+					},
+					"volumeInstances": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/VolumeInstance"
+						}
+					},
+					"securityEnablers": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"enum": ["CONFIGURATION_INTEGRITY_VERIFICATION", "RUNTIME_FILE_INTEGRITY", "FORENSIC_ACTIVATION"]
+						}
+					},
+					"securityConfigurationResultList": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SecurityConfigurationResult"
+						}
+					},
+					"componentNodeInstanceHashList": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ComponentNodeInstanceHash"
+						}
+					},
+					"componentNodeInstanceStatuses": {
+						"uniqueItems": true,
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ComponentNodeInstanceStatus"
+						}
+					},
+					"componentNodeInstanceAlerts": {
+						"uniqueItems": true,
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ComponentNodeInstanceAlert"
+						}
+					},
+					"componentNodeInstanceIPs": {
+						"uniqueItems": true,
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ComponentNodeInstanceIP"
+						}
+					},
+					"statusIDS": {
+						"type": "boolean"
+					},
+					"statusSOC": {
+						"type": "boolean"
+					},
+					"statusIPS": {
+						"type": "boolean"
+					},
+					"minimumWorkers": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"maximumWorkers": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"capabilityDrops": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"enum": ["SETPCAP", "MKNOD", "AUDIT_WRITE", "CHOWN", "NET_RAW", "DAC_OVERRIDE", "FOWNER", "FSETID", "KILL", "SETGID", "SETUID", "NET_BIND_SERVICE", "SYS_CHROOT", "SETFCAP", "ALL"]
+						}
+					},
+					"capabilityAdds": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"enum": ["SYS_MODULE", "SYS_RAWIO", "SYS_PACCT", "SYS_ADMIN", "SYS_NICE", "SYS_RESOURCE", "SYS_TIME", "SYS_TTY_CONFIG", "AUDIT_CONTROL", "MAC_ADMIN", "MAC_OVERRIDE", "NET_ADMIN", "SYSLOG", "DAC_READ_SEARCH", "LINUX_IMMUTABLE", "NET_BROADCAST", "IPC_LOCK", "IPC_OWNER", "SYS_PTRACE", "SYS_BOOT", "LEASE", "WAKE_ALARM", "BLOCK_SUSPEND", "ALL"]
+						}
+					},
+					"networkModeHost": {
+						"type": "boolean"
+					},
+					"privilege": {
+						"type": "boolean"
+					},
+					"hostname": {
+						"type": "string"
+					},
+					"sharedMemorySize": {
+						"type": "string"
+					},
+					"dnsEntry": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"loadBalancer": {
+						"type": "boolean"
+					},
+					"loadBalancedBy": {
+						"$ref": "#/components/schemas/ComponentNodeInstance"
+					},
+					"securityPolicies": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SecurityPolicy"
+						}
+					}
+				}
+			},
+			"ComponentNodeInstanceAlert": {
+				"type": "object",
+				"properties": {
+					"componentNodeInstanceAlertID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"componentNodeInstance": {
+						"$ref": "#/components/schemas/ComponentNodeInstance"
+					},
+					"applicationInstance": {
+						"$ref": "#/components/schemas/ApplicationInstance"
+					},
+					"message": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"componentNodeInstanceName": {
+						"type": "string"
+					},
+					"graphInstanceID": {
+						"type": "string"
+					}
+				}
+			},
+			"ComponentNodeInstanceHash": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"type": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"componentNodeInstance": {
+						"$ref": "#/components/schemas/ComponentNodeInstance"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"ComponentNodeInstanceIP": {
+				"type": "object",
+				"properties": {
+					"componentNodeInstanceIPID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"componentNodeInstance": {
+						"$ref": "#/components/schemas/ComponentNodeInstance"
+					},
+					"applicationInstance": {
+						"$ref": "#/components/schemas/ApplicationInstance"
+					},
+					"ip": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"network": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"componentNodeInstanceName": {
+						"type": "string"
+					},
+					"graphInstanceID": {
+						"type": "string"
+					}
+				}
+			},
+			"ComponentNodeInstanceStatus": {
+				"type": "object",
+				"properties": {
+					"componentNodeInstanceStatusID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"componentNodeInstance": {
+						"$ref": "#/components/schemas/ComponentNodeInstance"
+					},
+					"applicationInstance": {
+						"$ref": "#/components/schemas/ApplicationInstance"
+					},
+					"reportedChange": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"componentNodeInstanceName": {
+						"type": "string"
+					}
+				}
+			},
+			"Constraint": {
+				"type": "object",
+				"properties": {
+					"constraintID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"applicationInstance": {
+						"$ref": "#/components/schemas/ApplicationInstance"
+					},
+					"constraintCategory": {
+						"type": "string"
+					},
+					"constraintType": {
+						"type": "string"
+					},
+					"constraintMetric": {
+						"type": "string"
+					},
+					"constraintUnit": {
+						"type": "string"
+					},
+					"constraintValue": {
+						"type": "string"
+					},
+					"radioServiceType": {
+						"$ref": "#/components/schemas/RadioServiceType"
+					},
+					"resourceType": {
+						"type": "string"
+					},
+					"country": {
+						"$ref": "#/components/schemas/Country"
+					},
+					"qi": {
+						"$ref": "#/components/schemas/QI"
+					},
+					"allocationRetentionPriorityProfile": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"minimumGuaranteedBandwidth": {
+						"type": "number",
+						"format": "double"
+					},
+					"maximumRequiredBandwidth": {
+						"type": "number",
+						"format": "double"
+					},
+					"componentNodeInstance": {
+						"$ref": "#/components/schemas/ComponentNodeInstance"
+					},
+					"graphLinkNodeInstance": {
+						"$ref": "#/components/schemas/GraphLinkNodeInstance"
+					},
+					"interfaceInstance": {
+						"$ref": "#/components/schemas/InterfaceInstance"
+					},
+					"deletableConstraint": {
+						"type": "boolean"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"DeviceInstance": {
+				"type": "object",
+				"properties": {
+					"deviceInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"componentNodeInstance": {
+						"$ref": "#/components/schemas/ComponentNodeInstance"
+					},
+					"device": {
+						"$ref": "#/components/schemas/Device"
+					},
+					"key": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"DomainName": {
+				"type": "object",
+				"properties": {
+					"domainNameID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"domain": {
+						"type": "string"
+					},
+					"componentNodeInstanceIP": {
+						"$ref": "#/components/schemas/ComponentNodeInstanceIP"
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					},
+					"organization": {
+						"$ref": "#/components/schemas/Organization"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"EnvironmentalVariableInstance": {
+				"type": "object",
+				"properties": {
+					"environmentalVariableInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"componentNodeInstance": {
+						"$ref": "#/components/schemas/ComponentNodeInstance"
+					},
+					"environmentalVariable": {
+						"$ref": "#/components/schemas/EnvironmentalVariable"
+					},
+					"key": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"FlavorInstance": {
+				"type": "object",
+				"properties": {
+					"flavorID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"componentNodeInstance": {
+						"$ref": "#/components/schemas/ComponentNodeInstance"
+					},
+					"getvCPUs": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"ram": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"storage": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"GraphLinkNode": {
+				"type": "object",
+				"properties": {
+					"graphLinkNodeID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"application": {
+						"$ref": "#/components/schemas/Application"
+					},
+					"componentNodeFrom": {
+						"$ref": "#/components/schemas/ComponentNode"
+					},
+					"componentNodeTo": {
+						"$ref": "#/components/schemas/ComponentNode"
+					},
+					"graphLink": {
+						"$ref": "#/components/schemas/GraphLink"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"GraphLinkNodeInstance": {
+				"type": "object",
+				"properties": {
+					"graphLinkNodeInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"applicationInstance": {
+						"$ref": "#/components/schemas/ApplicationInstance"
+					},
+					"componentNodeInstanceFrom": {
+						"$ref": "#/components/schemas/ComponentNodeInstance"
+					},
+					"componentNodeInstanceTo": {
+						"$ref": "#/components/schemas/ComponentNodeInstance"
+					},
+					"graphLinkNode": {
+						"$ref": "#/components/schemas/GraphLinkNode"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"HealthCheckInstance": {
+				"type": "object",
+				"properties": {
+					"healthCheckInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"componentNodeInstance": {
+						"$ref": "#/components/schemas/ComponentNodeInstance"
+					},
+					"healthCheck": {
+						"$ref": "#/components/schemas/HealthCheck"
+					},
+					"name": {
+						"type": "string"
+					},
+					"httpURL": {
+						"type": "string"
+					},
+					"args": {
+						"type": "string"
+					},
+					"interval": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"IDRuleSetInstance": {
+				"type": "object",
+				"properties": {
+					"ruleSetInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"componentNodeInstance": {
+						"$ref": "#/components/schemas/ComponentNodeInstance"
+					},
+					"idRuleSet": {
+						"$ref": "#/components/schemas/IDRuleSet"
+					},
+					"name": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"idRuleSetID": {
+						"type": "integer",
+						"format": "int64"
+					}
+				}
+			},
+			"InterfaceInstance": {
+				"type": "object",
+				"properties": {
+					"interfaceInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"componentNodeInstance": {
+						"$ref": "#/components/schemas/ComponentNodeInstance"
+					},
+					"interfaceObj": {
+						"$ref": "#/components/schemas/Interface"
+					},
+					"name": {
+						"type": "string"
+					},
+					"port": {
+						"type": "string"
+					},
+					"interfaceType": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"LocationInstance": {
+				"type": "object",
+				"properties": {
+					"locationInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"componentNodeInstance": {
+						"$ref": "#/components/schemas/ComponentNodeInstance"
+					},
+					"country": {
+						"$ref": "#/components/schemas/Country"
+					},
+					"region": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"PluginInstance": {
+				"type": "object",
+				"properties": {
+					"pluginInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"componentNodeInstance": {
+						"$ref": "#/components/schemas/ComponentNodeInstance"
+					},
+					"plugin": {
+						"$ref": "#/components/schemas/Plugin"
+					},
+					"name": {
+						"type": "string"
+					},
+					"moduleName": {
+						"type": "string"
+					},
+					"immutablePlugin": {
+						"type": "boolean"
+					},
+					"deletedPlugin": {
+						"type": "boolean"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"Profile": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"applicationInstance": {
+						"$ref": "#/components/schemas/ApplicationInstance"
+					},
+					"name": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"algorithm": {
+						"type": "string"
+					},
+					"step": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"startTime": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"endTime": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"hexID": {
+						"type": "string"
+					},
+					"profileMetrics": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ProfileMetric"
+						}
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					}
+				}
+			},
+			"ProfileMetric": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"profile": {
+						"$ref": "#/components/schemas/Profile"
+					},
+					"componentNodeName": {
+						"type": "string"
+					},
+					"componentNodeHexID": {
+						"type": "string"
+					},
+					"metric": {
+						"type": "string"
+					},
+					"dimension": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"RuntimePolicy": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"applicationInstance": {
+						"$ref": "#/components/schemas/ApplicationInstance"
+					},
+					"name": {
+						"type": "string"
+					},
+					"hexID": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"policy": {
+						"type": "string"
+					},
+					"policyExpression": {
+						"type": "string"
+					},
+					"policyPeriod": {
+						"type": "string"
+					},
+					"inertiaPeriod": {
+						"type": "string"
+					},
+					"actions": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/RuntimePolicyAction"
+						}
+					},
+					"expressions": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/RuntimePolicyExpression"
+						}
+					},
+					"status": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					}
+				}
+			},
+			"RuntimePolicyAction": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"runtimePolicy": {
+						"$ref": "#/components/schemas/RuntimePolicy"
+					},
+					"componentName": {
+						"type": "string"
+					},
+					"componentHexID": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"workers": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"context": {
+						"type": "string"
+					},
+					"topicURL": {
+						"type": "string"
+					},
+					"topicPort": {
+						"type": "string"
+					},
+					"topicName": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"RuntimePolicyExpression": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"runtimePolicy": {
+						"$ref": "#/components/schemas/RuntimePolicy"
+					},
+					"function": {
+						"type": "string"
+					},
+					"componentNodeName": {
+						"type": "string"
+					},
+					"componentNodeHexID": {
+						"type": "string"
+					},
+					"metric": {
+						"type": "string"
+					},
+					"dimension": {
+						"type": "string"
+					},
+					"operand": {
+						"type": "string"
+					},
+					"threshold": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"SecurityConfiguration": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"hexID": {
+						"type": "string"
+					},
+					"applicationInstance": {
+						"$ref": "#/components/schemas/ApplicationInstance"
+					},
+					"securityConfigurationResultList": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SecurityConfigurationResult"
+						}
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"securityConfigurationType": {
+						"type": "string"
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					}
+				}
+			},
+			"SecurityConfigurationResult": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"hexID": {
+						"type": "string"
+					},
+					"securityConfiguration": {
+						"$ref": "#/components/schemas/SecurityConfiguration"
+					},
+					"componentNodeInstance": {
+						"$ref": "#/components/schemas/ComponentNodeInstance"
+					},
+					"status": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"SecurityPolicy": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"hexID": {
+						"type": "string"
+					},
+					"applicationInstance": {
+						"$ref": "#/components/schemas/ApplicationInstance"
+					},
+					"componentNodeInstances": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ComponentNodeInstance"
+						}
+					},
+					"ipAddress": {
+						"type": "string"
+					},
+					"rule": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					}
+				}
+			},
+			"Slice": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"hexID": {
+						"type": "string"
+					},
+					"applicationInstance": {
+						"$ref": "#/components/schemas/ApplicationInstance"
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					},
+					"organization": {
+						"$ref": "#/components/schemas/Organization"
+					},
+					"orchestratorApplicationInstance": {
+						"type": "string",
+						"writeOnly": true
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"providers": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SliceProvider"
+						}
+					},
+					"placements": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SlicePlacement"
+						}
+					},
+					"constraintSatisfactions": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SliceConstraintSatisfaction"
+						}
+					}
+				}
+			},
+			"SliceConstraintSatisfaction": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"constraintType": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"slice": {
+						"$ref": "#/components/schemas/Slice"
+					},
+					"constraint": {
+						"$ref": "#/components/schemas/Constraint"
+					},
+					"satisfied": {
+						"type": "boolean"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"SlicePlacement": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"slice": {
+						"$ref": "#/components/schemas/Slice"
+					},
+					"provider": {
+						"$ref": "#/components/schemas/Provider"
+					},
+					"componentNodeInstance": {
+						"$ref": "#/components/schemas/ComponentNodeInstance"
+					},
+					"flavorID": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"attachmentPoints": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SlicePlacementAttachmentPoint"
+						}
+					}
+				}
+			},
+			"SlicePlacementAttachmentPoint": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"slicePlacement": {
+						"$ref": "#/components/schemas/SlicePlacement"
+					},
+					"graphLinkNodeInstance": {
+						"$ref": "#/components/schemas/GraphLinkNodeInstance"
+					},
+					"interfaceInstance": {
+						"$ref": "#/components/schemas/InterfaceInstance"
+					},
+					"attachmentPoint": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"SliceProvider": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"slice": {
+						"$ref": "#/components/schemas/Slice"
+					},
+					"provider": {
+						"$ref": "#/components/schemas/Provider"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"SocPolicy": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"hexID": {
+						"type": "string"
+					},
+					"applicationInstance": {
+						"$ref": "#/components/schemas/ApplicationInstance"
+					},
+					"inputStreamList": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SocPolicyInputKafkaStream"
+						}
+					},
+					"kafkaExpressionList": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SocPolicyKafkaExpression"
+						}
+					},
+					"droolsExpressionList": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SocPolicyDroolsExpression"
+						}
+					},
+					"outputDroolsActionList": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SocPolicyOutputDroolsAction"
+						}
+					},
+					"droolsInertiaPeriodInSecond": {
+						"type": "string"
+					},
+					"kafkaRuleExpression": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					}
+				}
+			},
+			"SocPolicyDroolsExpression": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"socPolicy": {
+						"$ref": "#/components/schemas/SocPolicy"
+					},
+					"type": {
+						"type": "string"
+					},
+					"url": {
+						"type": "string"
+					},
+					"context": {
+						"type": "string"
+					},
+					"restMethod": {
+						"type": "string"
+					},
+					"brokerTopicName": {
+						"type": "string"
+					},
+					"header": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SocPolicyDroolsExpressionHeader"
+						}
+					},
+					"componentNodeHexID": {
+						"type": "string"
+					},
+					"componentNodeInstanceHexID": {
+						"type": "string"
+					},
+					"graphHexID": {
+						"type": "string"
+					},
+					"graphInstanceHexID": {
+						"type": "string"
+					}
+				}
+			},
+			"SocPolicyDroolsExpressionHeader": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"socPolicyDroolsExpression": {
+						"$ref": "#/components/schemas/SocPolicyDroolsExpression"
+					}
+				}
+			},
+			"SocPolicyInputKafkaStream": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"socPolicy": {
+						"$ref": "#/components/schemas/SocPolicy"
+					},
+					"inputTopic": {
+						"type": "string"
+					},
+					"fieldModelList": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SocPolicyInputKafkaStreamFieldModel"
+						}
+					}
+				}
+			},
+			"SocPolicyInputKafkaStreamFieldModel": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"socPolicyInputKafkaStream": {
+						"$ref": "#/components/schemas/SocPolicyInputKafkaStream"
+					},
+					"fieldName": {
+						"type": "string"
+					},
+					"fieldType": {
+						"type": "string"
+					}
+				}
+			},
+			"SocPolicyKafkaExpression": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"socPolicy": {
+						"$ref": "#/components/schemas/SocPolicy"
+					},
+					"inputTopic": {
+						"type": "string"
+					},
+					"operand": {
+						"type": "string"
+					},
+					"logical": {
+						"type": "string"
+					},
+					"fieldName": {
+						"type": "string"
+					},
+					"context": {
+						"type": "string"
+					}
+				}
+			},
+			"SocPolicyOutputDroolsAction": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"socPolicy": {
+						"$ref": "#/components/schemas/SocPolicy"
+					},
+					"type": {
+						"type": "string"
+					},
+					"url": {
+						"type": "string"
+					},
+					"context": {
+						"type": "string"
+					},
+					"restMethod": {
+						"type": "string"
+					},
+					"socAction": {
+						"type": "string"
+					},
+					"brokerTopicName": {
+						"type": "string"
+					},
+					"header": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SocPolicyOutputDroolsActionHeader"
+						}
+					},
+					"componentNodeHexID": {
+						"type": "string"
+					},
+					"componentNodeInstanceHexID": {
+						"type": "string"
+					},
+					"graphHexID": {
+						"type": "string"
+					},
+					"graphInstanceHexID": {
+						"type": "string"
+					}
+				}
+			},
+			"SocPolicyOutputDroolsActionHeader": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"socPolicyOutputDroolsAction": {
+						"$ref": "#/components/schemas/SocPolicyOutputDroolsAction"
+					}
+				}
+			},
+			"SpiderRule": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"policyId": {
+						"type": "string"
+					},
+					"applicationInstance": {
+						"$ref": "#/components/schemas/ApplicationInstance"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"VolumeInstance": {
+				"type": "object",
+				"properties": {
+					"volumeInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"componentNodeInstance": {
+						"$ref": "#/components/schemas/ComponentNodeInstance"
+					},
+					"volume": {
+						"$ref": "#/components/schemas/Volume"
+					},
+					"dockerPath": {
+						"type": "string"
+					},
+					"hostPath": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"file": {
+						"type": "boolean"
+					}
+				}
+			},
+			"DockerTO": {
+				"type": "object",
+				"properties": {
+					"dockerImage": {
+						"type": "string"
+					},
+					"dockerRegistry": {
+						"type": "string"
+					},
+					"dockerUsername": {
+						"type": "string"
+					},
+					"dockerPassword": {
+						"type": "string"
+					}
+				}
+			},
+			"CountryTo": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"alpha2": {
+						"type": "string"
+					},
+					"alpha3": {
+						"type": "string"
+					},
+					"countryCode": {
+						"type": "string"
+					},
+					"iso3166": {
+						"type": "string"
+					},
+					"region": {
+						"type": "string"
+					},
+					"subRegion": {
+						"type": "string"
+					},
+					"regionCode": {
+						"type": "string"
+					},
+					"subRegionCode": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"DatacloudStepTo": {
+				"type": "object",
+				"properties": {
+					"chunkName": {
+						"type": "string"
+					},
+					"pipelineName": {
+						"type": "string"
+					},
+					"pipelineType": {
+						"type": "string"
+					},
+					"terminationCheck": {
+						"$ref": "#/components/schemas/TerminationCheckTo"
+					},
+					"stepsList": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/JobTo"
+						}
+					}
+				}
+			},
+			"DeviceTo": {
+				"type": "object",
+				"properties": {
+					"deviceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"key": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"EnvironmentalVariableTo": {
+				"type": "object",
+				"properties": {
+					"environmentalVariableID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"key": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"GraphLinkTo": {
+				"type": "object",
+				"properties": {
+					"graphLinkID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"friendlyName": {
+						"type": "string"
+					},
+					"interfaceObj": {
+						"$ref": "#/components/schemas/InterfaceTo"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"HealthCheckTo": {
+				"type": "object",
+				"properties": {
+					"healthCheckID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"httpURL": {
+						"type": "string"
+					},
+					"args": {
+						"type": "string"
+					},
+					"interval": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"InterfaceTo": {
+				"type": "object",
+				"properties": {
+					"interfaceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"port": {
+						"type": "string"
+					},
+					"vna": {
+						"type": "string"
+					},
+					"interfaceType": {
+						"type": "string"
+					},
+					"transmissionProtocol": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"JobTo": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"hexID": {
+						"type": "string"
+					},
+					"architecture": {
+						"type": "string"
+					},
+					"elasticityControllerMode": {
+						"type": "string"
+					},
+					"dockerImage": {
+						"type": "string"
+					},
+					"dockerRegistry": {
+						"type": "string"
+					},
+					"dockerCredentialsUsing": {
+						"type": "boolean"
+					},
+					"dockerCustomRegistry": {
+						"type": "boolean"
+					},
+					"dockerUsername": {
+						"type": "string"
+					},
+					"dockerPassword": {
+						"type": "string"
+					},
+					"exposedInterfaces": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/InterfaceTo"
+						}
+					},
+					"requiredInterfaces": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/GraphLinkTo"
+						}
+					},
+					"requirement": {
+						"$ref": "#/components/schemas/RequirementTo"
+					},
+					"healthCheck": {
+						"$ref": "#/components/schemas/HealthCheckTo"
+					},
+					"environmentalVariables": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/EnvironmentalVariableTo"
+						}
+					},
+					"devices": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/DeviceTo"
+						}
+					},
+					"elasticityController": {
+						"type": "string"
+					},
+					"volumes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/VolumeTo"
+						}
+					},
+					"labels": {
+						"uniqueItems": true,
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/LabelTo"
+						}
+					},
+					"plugins": {
+						"uniqueItems": true,
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/PluginTo"
+						}
+					},
+					"publicComponent": {
+						"type": "boolean"
+					},
+					"networkModeHost": {
+						"type": "boolean"
+					},
+					"privilege": {
+						"type": "boolean"
+					},
+					"hostname": {
+						"type": "string"
+					},
+					"sharedMemorySize": {
+						"type": "string"
+					},
+					"command": {
+						"type": "string"
+					},
+					"capabilityDrops": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"enum": ["SETPCAP", "MKNOD", "AUDIT_WRITE", "CHOWN", "NET_RAW", "DAC_OVERRIDE", "FOWNER", "FSETID", "KILL", "SETGID", "SETUID", "NET_BIND_SERVICE", "SYS_CHROOT", "SETFCAP", "ALL"]
+						}
+					},
+					"capabilityAdds": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"enum": ["SYS_MODULE", "SYS_RAWIO", "SYS_PACCT", "SYS_ADMIN", "SYS_NICE", "SYS_RESOURCE", "SYS_TIME", "SYS_TTY_CONFIG", "AUDIT_CONTROL", "MAC_ADMIN", "MAC_OVERRIDE", "NET_ADMIN", "SYSLOG", "DAC_READ_SEARCH", "LINUX_IMMUTABLE", "NET_BROADCAST", "IPC_LOCK", "IPC_OWNER", "SYS_PTRACE", "SYS_BOOT", "LEASE", "WAKE_ALARM", "BLOCK_SUSPEND", "ALL"]
+						}
+					},
+					"ulimitMemlockSoft": {
+						"type": "string"
+					},
+					"ulimitMemlockHard": {
+						"type": "string"
+					},
+					"dockerExecutionUser": {
+						"type": "string"
+					},
+					"user": {
+						"$ref": "#/components/schemas/UserTo"
+					},
+					"organization": {
+						"$ref": "#/components/schemas/OrganizationTo"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"resource": {
+						"type": "string"
+					},
+					"terminationCheckTo": {
+						"$ref": "#/components/schemas/TerminationCheckTo"
+					},
+					"numWorkers": {
+						"type": "integer",
+						"format": "int32"
+					}
+				}
+			},
+			"LabelTo": {
+				"type": "object",
+				"properties": {
+					"labelID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"MetricTo": {
+				"type": "object",
+				"properties": {
+					"metricID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"friendlyName": {
+						"type": "string"
+					},
+					"unit": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"OrganizationTo": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"users": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/UserTo"
+						}
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"PluginTo": {
+				"type": "object",
+				"properties": {
+					"pluginID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"moduleName": {
+						"type": "string"
+					},
+					"downloadURL": {
+						"type": "string"
+					},
+					"pluginType": {
+						"type": "string"
+					},
+					"port": {
+						"type": "string"
+					},
+					"endpoint": {
+						"type": "string"
+					},
+					"publicPlugin": {
+						"type": "boolean"
+					},
+					"immutablePlugin": {
+						"type": "boolean"
+					},
+					"defaultPlugin": {
+						"type": "boolean"
+					},
+					"user": {
+						"$ref": "#/components/schemas/UserTo"
+					},
+					"organization": {
+						"$ref": "#/components/schemas/OrganizationTo"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"metrics": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/MetricTo"
+						}
+					},
+					"metricsCounter": {
+						"type": "integer",
+						"format": "int32"
+					}
+				}
+			},
+			"RequirementTo": {
+				"type": "object",
+				"properties": {
+					"requirementID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"getvCPUs": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"ram": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"storage": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"hypervisorType": {
+						"type": "string"
+					},
+					"gpuRequired": {
+						"type": "boolean"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"TerminationCheckTo": {
+				"type": "object",
+				"properties": {
+					"httpURL": {
+						"type": "string"
+					}
+				}
+			},
+			"UserTo": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"username": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					},
+					"country": {
+						"$ref": "#/components/schemas/CountryTo"
+					},
+					"role": {
+						"type": "string"
+					},
+					"notificationWebEnabled": {
+						"type": "boolean"
+					},
+					"notificationEmailEnabled": {
+						"type": "boolean"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"firstLogin": {
+						"type": "boolean"
+					},
+					"enabled": {
+						"type": "boolean"
+					},
+					"organization": {
+						"$ref": "#/components/schemas/OrganizationTo"
+					},
+					"newPassword": {
+						"type": "string"
+					},
+					"verifyPassword": {
+						"type": "string"
+					},
+					"currentPassword": {
+						"type": "string"
+					}
+				}
+			},
+			"VolumeTo": {
+				"type": "object",
+				"properties": {
+					"volumeID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"dockerPath": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"file": {
+						"type": "boolean"
+					}
+				}
+			},
+			"RestResponseSPAComponent": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"$ref": "#/components/schemas/Component"
+					}
+				}
+			},
+			"PhysiognomicaResultModel": {
+				"type": "object",
+				"properties": {
+					"analyticServiceName": {
+						"type": "string"
+					},
+					"callbackid": {
+						"type": "string"
+					},
+					"executionDate": {
+						"type": "string"
+					},
+					"executionMessage": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"resultModels": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ResultModel"
+						}
+					}
+				}
+			},
+			"ResultModel": {
+				"type": "object",
+				"properties": {
+					"result": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					}
+				}
+			},
+			"AlertTO": {
+				"type": "object",
+				"properties": {
+					"componentNodeInstanceAlertID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"componentNodeInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"applicationInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"graphInstanceID": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"componentNodeInstanceName": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"ApplicationGraphTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"hexID": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"publicApplication": {
+						"type": "boolean"
+					},
+					"componentNodes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ComponentNodeTO"
+						}
+					},
+					"graphLinkNodes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/GraphLinkNodeTO"
+						}
+					},
+					"organization": {
+						"type": "string"
+					}
+				}
+			},
+			"ApplicationInstanceGraphTO": {
+				"type": "object",
+				"properties": {
+					"applicationInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"hexID": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"overlay": {
+						"type": "boolean"
+					},
+					"deploymentTimestamp": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"application": {
+						"$ref": "#/components/schemas/ApplicationGraphTO"
+					},
+					"provider": {
+						"$ref": "#/components/schemas/ProviderTO"
+					},
+					"grafanaUUID": {
+						"type": "string"
+					},
+					"componentNodeInstances": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ComponentNodeInstanceTO"
+						}
+					},
+					"constraints": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ConstraintTO"
+						}
+					},
+					"graphLinkNodeInstances": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/GraphLinkNodeInstanceTO"
+						}
+					},
+					"status": {
+						"type": "string"
+					},
+					"dateDeployed": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"ComponentNodeInstanceTO": {
+				"type": "object",
+				"properties": {
+					"componentNodeInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"hexID": {
+						"type": "string"
+					},
+					"componentNode": {
+						"$ref": "#/components/schemas/ComponentNodeTO"
+					},
+					"sshKey": {
+						"$ref": "#/components/schemas/SSHKeyTO"
+					},
+					"provider": {
+						"$ref": "#/components/schemas/ProviderTO"
+					},
+					"flavorInstance": {
+						"$ref": "#/components/schemas/FlavorInstanceTO"
+					},
+					"healthCheckInstance": {
+						"$ref": "#/components/schemas/HealthCheckInstanceTO"
+					},
+					"locationInstances": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/LocationInstanceTO"
+						}
+					},
+					"command": {
+						"type": "string"
+					},
+					"pluginInstances": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/PluginInstanceTO"
+						}
+					},
+					"getiDRuleSetInstances": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/IDRuleSetInstanceTO"
+						}
+					},
+					"environmentalVariableInstances": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/EnvironmentalVariableInstanceTO"
+						}
+					},
+					"deviceInstances": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/DeviceInstanceTO"
+						}
+					},
+					"interfaceInstances": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/InterfaceInstanceTO"
+						}
+					},
+					"volumeInstances": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/VolumeInstanceTO"
+						}
+					},
+					"componentNodeInstanceIPs": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/IPTO"
+						}
+					},
+					"componentNodeInstanceAlerts": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/AlertTO"
+						}
+					},
+					"componentNodeInstanceStatuses": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StatusTO"
+						}
+					},
+					"statusIDS": {
+						"type": "boolean"
+					},
+					"statusIPS": {
+						"type": "boolean"
+					},
+					"statusSOC": {
+						"type": "boolean"
+					},
+					"minimumWorkers": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"maximumWorkers": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"capabilityDrops": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"capabilityAdds": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"securityEnablers": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"networkModeHost": {
+						"type": "boolean"
+					},
+					"privilege": {
+						"type": "boolean"
+					},
+					"hostname": {
+						"type": "string"
+					},
+					"sharedMemorySize": {
+						"type": "string"
+					},
+					"dnsEntry": {
+						"type": "string"
+					},
+					"loadBalancer": {
+						"type": "boolean"
+					},
+					"loadBalancedBy": {
+						"$ref": "#/components/schemas/ComponentNodeInstanceTO"
+					}
+				}
+			},
+			"ComponentNodeTO": {
+				"type": "object",
+				"properties": {
+					"componentNodeID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"hexID": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"component": {
+						"$ref": "#/components/schemas/ComponentTO"
+					}
+				}
+			},
+			"ComponentTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"hexID": {
+						"type": "string"
+					},
+					"publicComponent": {
+						"type": "boolean"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"elasticityController": {
+						"type": "string"
+					},
+					"exposedInterfaces": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/InterfaceTO"
+						}
+					},
+					"allowEdit": {
+						"type": "boolean"
+					},
+					"allowDelete": {
+						"type": "boolean"
+					},
+					"organization": {
+						"type": "string"
+					}
+				}
+			},
+			"ConstraintTO": {
+				"type": "object",
+				"properties": {
+					"constraintID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"constraintCategory": {
+						"type": "string"
+					},
+					"constraintType": {
+						"type": "string"
+					},
+					"constraintMetric": {
+						"type": "string"
+					},
+					"constraintUnit": {
+						"type": "string"
+					},
+					"constraintValue": {
+						"type": "string"
+					},
+					"radioServiceType": {
+						"$ref": "#/components/schemas/RadioServiceTypeTO"
+					},
+					"resourceType": {
+						"type": "string"
+					},
+					"country": {
+						"$ref": "#/components/schemas/CountryTO"
+					},
+					"qi": {
+						"$ref": "#/components/schemas/QITO"
+					},
+					"allocationRetentionPriorityProfile": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"minimumGuaranteedBandwidth": {
+						"type": "number",
+						"format": "double"
+					},
+					"maximumRequiredBandwidth": {
+						"type": "number",
+						"format": "double"
+					},
+					"componentNodeInstance": {
+						"$ref": "#/components/schemas/ComponentNodeInstanceTO"
+					},
+					"graphLinkNodeInstance": {
+						"$ref": "#/components/schemas/GraphLinkNodeInstanceTO"
+					},
+					"interfaceInstance": {
+						"$ref": "#/components/schemas/InterfaceInstanceTO"
+					},
+					"deletableConstraint": {
+						"type": "boolean"
+					}
+				}
+			},
+			"CountryTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"DeviceInstanceTO": {
+				"type": "object",
+				"properties": {
+					"deviceInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"device": {
+						"$ref": "#/components/schemas/DeviceTO"
+					},
+					"key": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					}
+				}
+			},
+			"DeviceTO": {
+				"type": "object",
+				"properties": {
+					"deviceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"key": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					}
+				}
+			},
+			"EnvironmentalVariableInstanceTO": {
+				"type": "object",
+				"properties": {
+					"environmentalVariableInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"environmentalVariable": {
+						"$ref": "#/components/schemas/EnvironmentalVariableTO"
+					},
+					"key": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					}
+				}
+			},
+			"EnvironmentalVariableTO": {
+				"type": "object",
+				"properties": {
+					"environmentalVariableID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"key": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					}
+				}
+			},
+			"FlavorInstanceTO": {
+				"type": "object",
+				"properties": {
+					"flavorID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"getvCPUs": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"ram": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"storage": {
+						"type": "integer",
+						"format": "int32"
+					}
+				}
+			},
+			"GraphLinkNodeInstanceTO": {
+				"type": "object",
+				"properties": {
+					"graphLinkNodeInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"componentNodeInstanceFrom": {
+						"$ref": "#/components/schemas/ComponentNodeInstanceTO"
+					},
+					"componentNodeInstanceTo": {
+						"$ref": "#/components/schemas/ComponentNodeInstanceTO"
+					},
+					"graphLinkNode": {
+						"$ref": "#/components/schemas/GraphLinkNodeTO"
+					}
+				}
+			},
+			"GraphLinkNodeTO": {
+				"type": "object",
+				"properties": {
+					"graphLinkNodeID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"componentNodeFrom": {
+						"$ref": "#/components/schemas/ComponentNodeTO"
+					},
+					"componentNodeTo": {
+						"$ref": "#/components/schemas/ComponentNodeTO"
+					},
+					"graphLink": {
+						"$ref": "#/components/schemas/GraphLinkTO"
+					}
+				}
+			},
+			"GraphLinkTO": {
+				"type": "object",
+				"properties": {
+					"graphLinkID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"friendlyName": {
+						"type": "string"
+					},
+					"interfaceObj": {
+						"$ref": "#/components/schemas/InterfaceTO"
+					}
+				}
+			},
+			"HealthCheckInstanceTO": {
+				"type": "object",
+				"properties": {
+					"healthCheckInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"healthCheck": {
+						"$ref": "#/components/schemas/HealthCheckTO"
+					},
+					"name": {
+						"type": "string"
+					},
+					"httpURL": {
+						"type": "string"
+					},
+					"args": {
+						"type": "string"
+					},
+					"interval": {
+						"type": "integer",
+						"format": "int64"
+					}
+				}
+			},
+			"HealthCheckTO": {
+				"type": "object",
+				"properties": {
+					"healthCheckID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"httpURL": {
+						"type": "string"
+					},
+					"args": {
+						"type": "string"
+					},
+					"interval": {
+						"type": "integer",
+						"format": "int64"
+					}
+				}
+			},
+			"IDRuleSetInstanceTO": {
+				"type": "object",
+				"properties": {
+					"ruleSetInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"idRuleSet": {
+						"$ref": "#/components/schemas/IDRuleSetTO"
+					},
+					"name": {
+						"type": "string"
+					},
+					"idRuleSetID": {
+						"type": "integer",
+						"format": "int64"
+					}
+				}
+			},
+			"IDRuleSetTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"rulesCounter": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"allowEdit": {
+						"type": "boolean"
+					},
+					"allowDelete": {
+						"type": "boolean"
+					},
+					"publicIDRuleSet": {
+						"type": "boolean"
+					},
+					"organization": {
+						"type": "string"
+					}
+				}
+			},
+			"IPTO": {
+				"type": "object",
+				"properties": {
+					"componentNodeInstanceIPID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"componentNodeInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"applicationInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"graphInstanceID": {
+						"type": "string"
+					},
+					"componentNodeInstanceName": {
+						"type": "string"
+					},
+					"ip": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"network": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"InterfaceInstanceTO": {
+				"type": "object",
+				"properties": {
+					"interfaceInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"interfaceObj": {
+						"$ref": "#/components/schemas/InterfaceTO"
+					},
+					"name": {
+						"type": "string"
+					},
+					"port": {
+						"type": "string"
+					}
+				}
+			},
+			"InterfaceTO": {
+				"type": "object",
+				"properties": {
+					"interfaceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"port": {
+						"type": "string"
+					},
+					"interfaceType": {
+						"type": "string"
+					},
+					"transmissionProtocol": {
+						"type": "string"
+					},
+					"componentID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"LocationInstanceTO": {
+				"type": "object",
+				"properties": {
+					"locationInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"country": {
+						"$ref": "#/components/schemas/CountryTO"
+					},
+					"region": {
+						"type": "string"
+					}
+				}
+			},
+			"PluginInstanceTO": {
+				"type": "object",
+				"properties": {
+					"pluginInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"plugin": {
+						"$ref": "#/components/schemas/PluginTO"
+					},
+					"name": {
+						"type": "string"
+					},
+					"moduleName": {
+						"type": "string"
+					},
+					"immutablePlugin": {
+						"type": "boolean"
+					},
+					"deletedPlugin": {
+						"type": "boolean"
+					}
+				}
+			},
+			"PluginTO": {
+				"type": "object",
+				"properties": {
+					"pluginID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"moduleName": {
+						"type": "string"
+					},
+					"publicPlugin": {
+						"type": "boolean"
+					},
+					"immutablePlugin": {
+						"type": "boolean"
+					},
+					"defaultPlugin": {
+						"type": "boolean"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"metricsCounter": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"allowEdit": {
+						"type": "boolean"
+					},
+					"allowDelete": {
+						"type": "boolean"
+					},
+					"organization": {
+						"type": "string"
+					}
+				}
+			},
+			"ProviderQuotaTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"runningInstances": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"maxInstances": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"instancesUtilization": {
+						"type": "number",
+						"format": "double"
+					},
+					"usedVirtualCPUs": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"maxVirtualCPUs": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"virtualCPUsUtilization": {
+						"type": "number",
+						"format": "double"
+					},
+					"usedMemory": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"maxMemory": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"memoryUtilization": {
+						"type": "number",
+						"format": "double"
+					},
+					"usedFloatingIPs": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"claimedFloatingIPs": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"floatingIPsConsumption": {
+						"type": "number",
+						"format": "double"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"ProviderTO": {
+				"type": "object",
+				"properties": {
+					"providerID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"providerType": {
+						"$ref": "#/components/schemas/ProviderTypeTO"
+					},
+					"defaultProvider": {
+						"type": "boolean"
+					},
+					"regionsCounter": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"regions": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/RegionTO"
+						}
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"providerQuota": {
+						"$ref": "#/components/schemas/ProviderQuotaTO"
+					},
+					"organization": {
+						"type": "string"
+					},
+					"allowEdit": {
+						"type": "boolean"
+					},
+					"allowDelete": {
+						"type": "boolean"
+					}
+				}
+			},
+			"ProviderTypeTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"friendlyName": {
+						"type": "string"
+					},
+					"enabled": {
+						"type": "boolean"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"QITO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"qiValue": {
+						"type": "string"
+					},
+					"resourceType": {
+						"type": "string"
+					},
+					"defaultPriorityLevel": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"packetDelayBudget": {
+						"type": "string"
+					},
+					"packetErrorRate": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"allowEdit": {
+						"type": "boolean"
+					},
+					"allowDelete": {
+						"type": "boolean"
+					}
+				}
+			},
+			"RadioServiceTypeTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"serviceType": {
+						"type": "string"
+					},
+					"sstValue": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"characteristics": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"allowEdit": {
+						"type": "boolean"
+					},
+					"allowDelete": {
+						"type": "boolean"
+					}
+				}
+			},
+			"RegionTO": {
+				"type": "object",
+				"properties": {
+					"regionID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"RestResponseSPAApplicationInstanceGraphTO": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"$ref": "#/components/schemas/ApplicationInstanceGraphTO"
+					}
+				}
+			},
+			"SSHKeyTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"friendlyName": {
+						"type": "string"
+					},
+					"defaultSSH": {
+						"type": "boolean"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"allowEdit": {
+						"type": "boolean"
+					},
+					"allowDelete": {
+						"type": "boolean"
+					},
+					"user": {
+						"type": "string"
+					}
+				}
+			},
+			"StatusTO": {
+				"type": "object",
+				"properties": {
+					"componentNodeInstanceStatusID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"componentNodeInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"componentNodeInstanceName": {
+						"type": "string"
+					},
+					"applicationInstanceName": {
+						"type": "string"
+					},
+					"applicationInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"reportedChange": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModified": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"VolumeInstanceTO": {
+				"type": "object",
+				"properties": {
+					"volumeInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"volume": {
+						"$ref": "#/components/schemas/VolumeTO"
+					},
+					"dockerPath": {
+						"type": "string"
+					},
+					"hostPath": {
+						"type": "string"
+					},
+					"nameOld": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					}
+				}
+			},
+			"VolumeTO": {
+				"type": "object",
+				"properties": {
+					"volumeID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"dockerPath": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					}
+				}
+			},
+			"ProfileMetricTO": {
+				"type": "object",
+				"properties": {
+					"componentNodeHexId": {
+						"type": "string"
+					},
+					"metric": {
+						"type": "string"
+					},
+					"dimension": {
+						"type": "string"
+					}
+				}
+			},
+			"ProfileTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"applicationInstanceID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"algorithm": {
+						"type": "string"
+					},
+					"step": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"startTime": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"endTime": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"profileMetrics": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ProfileMetricTO"
+						}
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"username": {
+						"type": "string"
+					},
+					"allowEdit": {
+						"type": "boolean"
+					},
+					"allowDelete": {
+						"type": "boolean"
+					}
+				}
+			},
+			"ProfilingResultTO": {
+				"type": "object",
+				"properties": {
+					"startTime": {
+						"type": "string"
+					},
+					"endTime": {
+						"type": "string"
+					},
+					"algorithm": {
+						"type": "string"
+					},
+					"outputURl": {
+						"type": "string"
+					},
+					"step": {
+						"type": "string"
+					}
+				}
+			},
+			"RestResponseSPAProfilingResultTO": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"$ref": "#/components/schemas/ProfilingResultTO"
+					}
+				}
+			},
+			"SecurityConfigurationTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"componentNodeHexIDs": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"securityConfigurationType": {
+						"type": "string"
+					},
+					"dateCreated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"allowEdit": {
+						"type": "boolean"
+					},
+					"allowDelete": {
+						"type": "boolean"
+					}
+				}
+			},
+			"RestResponseSPAComponentNodeInstanceTO": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"$ref": "#/components/schemas/ComponentNodeInstanceTO"
+					}
+				}
+			},
+			"RestResponseSPAApplicationGraphTO": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"returnobject": {
+						"$ref": "#/components/schemas/ApplicationGraphTO"
+					}
+				}
+			}
+		},
+		"securitySchemes": {
+			"auth_token": {
+				"type": "apiKey",
+				"name": "auth_token",
+				"in": "cookie"
+			}
+		}
+	}
+}
