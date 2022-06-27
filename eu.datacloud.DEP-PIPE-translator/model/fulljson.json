@@ -1,0 +1,69 @@
+{
+	"components": [{
+		"order": 1,
+		"name": "aa",
+		"architecture": "amd64",
+		"elasticityControllerMode": "HORIZONTAL",
+		"dockerImage": "",
+		"dockerCredentialsUsing": "true",
+		"dockerUsername": "",
+		"dockerPassword": "",
+		"dockerCustomRegistry": "true",
+		"dockerRegistry": "",
+		"requirement": {
+			"vCPUs": 2,
+			"ram": 5,
+			"storage": 20,
+			"hypervisorType": "EXSI",
+			"gpuRequired": "false"
+		},
+		"healthCheck": {
+			"httpURL": "",
+			"args": "",
+			"interval": 20
+		},
+		"command": "-->Container Excecution<--",
+		"environmentalVariables": [{
+			"key": "",
+			"value": ""
+		}],
+		"exposedInterfaces": [{
+			"name": "",
+			"port": "",
+			"interfaceType": "Access",
+			"transmissionProtocol": "TCP"
+		}],
+		"requiredInterfaces": [{
+			"name": ""
+		}],
+		"plugin": [{
+			"name": ""
+		}],
+		"volumes": "?????????",
+		"devices": "????????",
+		"label": [{
+			"name": ""
+		}],
+		"hostname": "-->Advanced Options<--",
+		"capabilityDrops": [{
+			"name": ""
+		}],
+		"capabilityAdds": [{
+			"name": ""
+		}],
+		"ulimitMemlockSoft": "",
+		"ulimitMemlockHard": "",
+		"networkModeHost": "true",
+		"privilege": "false"
+	}],
+	"application": {
+		"name": "",
+		"public": "true",
+		"componentNodes": [{
+			"name": ""
+		}]
+	},
+	"applicationInstance": {
+		"name": ""
+	}
+}
