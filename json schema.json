@@ -1,0 +1,369 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Welcome6",
+    "definitions": {
+        "Welcome6": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "pipelineName": {
+                    "type": "string"
+                },
+                "pipelineType": {
+                    "type": "string"
+                },
+                "stepName": {
+                    "type": "string"
+                },
+                "terminationCheck": {
+                    "$ref": "#/definitions/Welcome6TerminationCheck"
+                },
+                "time": {
+                    "$ref": "#/definitions/Time"
+                },
+                "jobListjob": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/JobListjob"
+                    }
+                }
+            },
+            "required": [
+                "jobListjob",
+                "pipelineName",
+                "pipelineType",
+                "stepName",
+                "terminationCheck",
+                "time"
+            ],
+            "title": "Welcome6"
+        },
+        "JobListjob": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "order": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "resource": {
+                    "type": "string"
+                },
+                "provider": {
+                    "type": "string"
+                },
+                "architecture": {
+                    "type": "string"
+                },
+                "elasticityControllerMode": {
+                    "type": "string"
+                },
+                "dockerImage": {
+                    "type": "string"
+                },
+                "dockerCredentialsUsing": {
+                    "type": "string",
+                    "format": "boolean"
+                },
+                "dockerUsername": {
+                    "type": "string"
+                },
+                "dockerPassword": {
+                    "type": "string"
+                },
+                "dockerCustomRegistry": {
+                    "type": "string",
+                    "format": "boolean"
+                },
+                "dockerRegistry": {
+                    "type": "string"
+                },
+                "requirement": {
+                    "$ref": "#/definitions/Requirement"
+                },
+                "healthCheck": {
+                    "$ref": "#/definitions/HealthCheck"
+                },
+                "terminationCheck": {
+                    "$ref": "#/definitions/JobListjobTerminationCheck"
+                },
+                "command": {
+                    "type": "string"
+                },
+                "environmentalVariables": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Device"
+                    }
+                },
+                "numWorkers": {
+                    "type": "integer"
+                },
+                "exposedInterfaces": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ExposedInterface"
+                    }
+                },
+                "requiredInterfaces": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/RequiredInterface"
+                    }
+                },
+                "plugin": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/CapabilityAdd"
+                    }
+                },
+                "devices": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Device"
+                    }
+                },
+                "volumes": {
+                    "type": "string"
+                },
+                "labels": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/CapabilityAdd"
+                    }
+                },
+                "hostname": {
+                    "type": "string"
+                },
+                "capabilityDrops": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/CapabilityAdd"
+                    }
+                },
+                "capabilityAdds": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/CapabilityAdd"
+                    }
+                },
+                "ulimitMemlockSoft": {
+                    "type": "string"
+                },
+                "ulimitMemlockHard": {
+                    "type": "string"
+                },
+                "networkModeHost": {
+                    "type": "string",
+                    "format": "boolean"
+                },
+                "privilege": {
+                    "type": "string",
+                    "format": "boolean"
+                },
+                "publicComponet": {
+                    "type": "boolean"
+                },
+                "dockerExecutionUser": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "architecture",
+                "capabilityAdds",
+                "capabilityDrops",
+                "command",
+                "devices",
+                "dockerCredentialsUsing",
+                "dockerCustomRegistry",
+                "dockerExecutionUser",
+                "dockerImage",
+                "dockerPassword",
+                "dockerRegistry",
+                "dockerUsername",
+                "elasticityControllerMode",
+                "environmentalVariables",
+                "exposedInterfaces",
+                "healthCheck",
+                "hostname",
+                "labels",
+                "name",
+                "networkModeHost",
+                "numWorkers",
+                "order",
+                "plugin",
+                "privilege",
+                "provider",
+                "publicComponet",
+                "requiredInterfaces",
+                "requirement",
+                "resource",
+                "terminationCheck",
+                "ulimitMemlockHard",
+                "ulimitMemlockSoft",
+                "volumes"
+            ],
+            "title": "JobListjob"
+        },
+        "CapabilityAdd": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name"
+            ],
+            "title": "CapabilityAdd"
+        },
+        "Device": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "key": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "key",
+                "value"
+            ],
+            "title": "Device"
+        },
+        "ExposedInterface": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "interfaceType": {
+                    "type": "string"
+                },
+                "transmissionProtocol": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "interfaceType",
+                "name",
+                "port",
+                "transmissionProtocol"
+            ],
+            "title": "ExposedInterface"
+        },
+        "HealthCheck": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "httpURL": {
+                    "type": "string"
+                },
+                "args": {
+                    "type": "string"
+                },
+                "interval": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "args",
+                "httpURL",
+                "interval"
+            ],
+            "title": "HealthCheck"
+        },
+        "RequiredInterface": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "friendlyNamename": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "friendlyNamename"
+            ],
+            "title": "RequiredInterface"
+        },
+        "Requirement": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "vCPUs": {
+                    "type": "integer"
+                },
+                "ram": {
+                    "type": "integer"
+                },
+                "storage": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "ram",
+                "storage",
+                "vCPUs"
+            ],
+            "title": "Requirement"
+        },
+        "JobListjobTerminationCheck": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "httpURL": {
+                    "type": "string"
+                },
+                "args": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "args",
+                "httpURL"
+            ],
+            "title": "JobListjobTerminationCheck"
+        },
+        "Welcome6TerminationCheck": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "httpURL": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "httpURL"
+            ],
+            "title": "Welcome6TerminationCheck"
+        },
+        "Time": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "EST": {
+                    "type": "number"
+                },
+                "EFT": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "EFT",
+                "EST"
+            ],
+            "title": "Time"
+        }
+    }
+}
