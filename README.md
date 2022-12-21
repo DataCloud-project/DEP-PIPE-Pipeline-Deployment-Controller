@@ -27,13 +27,8 @@ This achieved by exposing a handful of Rest APIs that are consumed by the aforem
 
 
 ## Setup and Usage
-This module will be able to be used by a)downloading the dedicated container image, or b) by following the provided instructions in order to build the software from code.
+This module is currently an extension of MAESTRO codebase. For this reason usage of the DEP-PIPE is possible only by downloading the dedicated container image.
 
-> DEP-PIPE translator is **currently part of the DEP-PIPE core module and not a standalone module**. However by the **first release of DEP-PIPE** (October 2022) this code provided in this repository will be able to be used as a **standalone service**.
-
-
-
-
-> For the final release of this module, the communication between the DEP-PIPE-translator and any other Datacloud components will be based on Keycloak .
+> DEP-PIPE translator is **currently part of the DEP-PIPE core module and not a standalone module** in the first release of DEP-PIPE. However by the **final release of DEP-PIPE**  this code provided in this repository will be able to be used as a **standalone service**.
 
 
