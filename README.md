@@ -1,34 +1,62 @@
-<p align="center"><img width=50% src="https://raw.githubusercontent.com/DataCloud-project/DEP-PIPE-translator/main/img/DEPPIPE_Logo_TransparentBackground_White.png"></p>&nbsp;
+# Datacloud Project
 
-[![GitHub Issues](https://img.shields.io/github/issues/DataCloud-project/DEP-PIPE-translator.svg)](https://github.com/DataCloud-project/DEP-PIPE-translator/issues)
-[![License](https://img.shields.io/badge/license-Apache2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+This is a project to provide a concrete Datacloud Microservice.
 
-# DEP-PIPE Translator
+This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
-This sections describes the DEP-PIPE-translator as also its functionalities.
+If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
-[//]: # (Translator of the descriptor provided by ADA-PIPE in order to be deployed through DEP-PIPE)
+## Running the application in dev mode
 
-DEP-PIPE-translator aids the communication between the ADA-PIPE and DEP-PIPE DATACLOUD components.
-This achieved by exposing a handful of Rest APIs that are consumed by the aforementioned components. 
+You can run your application in dev mode that enables live coding using:
+```shell script
+./mvnw compile quarkus:dev
+```
 
-## Functionalities :
+> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
 
-- A POST API that the ADA-PIPE can utilize to validate its descriptor before sending it to the DEP-PIPE.
-- A POST API that is used to parse ADA-PIPE descriptor and translate to the one that DEP-PIPE can consume.
-- A DELETE call that allows the removal of a deployed pipeline step
-- A Kafka consumer that can accept ADA-PIPE descriptors and translate to the one that DEP-PIPE can consume.
+## Packaging and running the application
 
-> List of the APIS can be found in the api folder.
+The application can be packaged using:
+```shell script
+./mvnw package
+```
+It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
+Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
 
-> The APIs are prune to changes until the finalization of the project, as also to support future possible functionalities.
+The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
 
+If you want to build an _über-jar_, execute the following command:
+```shell script
+./mvnw package -Dquarkus.package.type=uber-jar
+```
 
+The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
 
+## Creating a native executable
 
-## Setup and Usage
-This module is currently an extension of MAESTRO codebase. For this reason usage of the DEP-PIPE is possible only by downloading the dedicated container image.
+You can create a native executable using: 
+```shell script
+./mvnw package -Pnative
+```
 
-> DEP-PIPE translator is **currently part of the DEP-PIPE core module and not a standalone module** in the first release of DEP-PIPE. However by the **final release of DEP-PIPE**  this code provided in this repository will be able to be used as a **standalone service**.
+Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
+```shell script
+./mvnw package -Pnative -Dquarkus.native.container-build=true
+```
 
+You can then execute your native executable with: `./target/datacloud-1.0.0-SNAPSHOT-runner`
 
+If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
+
+## Related Guides
+
+- SmallRye OpenAPI ([guide](https://quarkus.io/guides/openapi-swaggerui)): Document your REST APIs with OpenAPI - comes with Swagger UI
+
+## Provided Code
+
+### RESTEasy Reactive
+
+Easily start your Reactive RESTful Web Services
+
+[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)

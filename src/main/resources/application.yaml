@@ -1,0 +1,20 @@
+quarkus:
+  http:
+    port: 9500
+  tls:
+   trust-all: true
+  smallrye-openapi:
+    info-title: Datacloud
+    info-contact-email: info@ubitech.eu
+    info-contact-name: UBITECH Ltd.
+    info-contact-url: https://ubitech.eu/
+  rest-client:
+    maestro-rest-api:
+      url: http://localhost:8080/
+      scope: javax.inject.Singleton
+  swagger-ui:
+    always-include: true
+
+maestro:
+  auth:
+    token: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaXNzIjoib3JjaGVzdHJhdG9yLWFwcCIsImV4cCI6MTY3MjQ4NzQ1NywiaWF0IjoxNjcxNjIzNDU3LCJqdGkiOiI3OTQxZDY0Mi1mNGRkLTQzZDItOTllOS0yOTZiNTc5Mjg3MTcifQ.R-eAuNpF4sE-uJOSeESvNgkywGV3lt_q94L9ByrPUv8"
