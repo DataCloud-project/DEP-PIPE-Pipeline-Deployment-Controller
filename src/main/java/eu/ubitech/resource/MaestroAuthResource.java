@@ -7,8 +7,10 @@ import eu.ubitech.utils.MaestroAuthDto;
 import eu.ubitech.utils.MaestroAuthTokenDto;
 import io.quarkus.security.UnauthorizedException;
 import lombok.extern.java.Log;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
@@ -35,6 +37,7 @@ public class MaestroAuthResource {
     // Authenticate with Maestro
     @POST
     @Path("/auth")
+    @Operation(summary = "Authenticate with maestro", description = "Request an access token to maestro service")
     @APIResponses(value = {
             @APIResponse(responseCode = "200", description = "Successful Authentication",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = MaestroAuthTokenDto.class)

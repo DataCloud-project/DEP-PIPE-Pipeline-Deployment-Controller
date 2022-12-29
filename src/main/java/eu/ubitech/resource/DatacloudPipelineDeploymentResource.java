@@ -6,8 +6,10 @@ import eu.ubitech.utils.MaestroRestResponseDto;
 import io.vertx.core.http.HttpServerRequest;
 import lombok.extern.java.Log;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
@@ -32,6 +34,8 @@ public class DatacloudPipelineDeploymentResource {
 
     /* Request Pipeline Deployment */
     @POST
+    @Operation(summary = "Request Deployment of Datacloud Pipeline", description = "Send a request to initialize deployment of datacloud pipeline")
+    @Parameter(name = "pipelineDeploymentID", description = "The id value of the pipeline deployment in the database", required = true)
     @Path("/deployment")
     @APIResponses(value = {
             @APIResponse(responseCode = "201", description = "Successfully Requested Deployment of Datacloud Pipeline",
@@ -65,6 +69,8 @@ public class DatacloudPipelineDeploymentResource {
 
     /* Request Pipeline Undeployment */
     @POST
+    @Operation(summary = "Request Undeployment of Datacloud Pipeline", description = "Send a request to initialize undeployment of datacloud pipeline")
+    @Parameter(name = "pipelineDeploymentID", description = "The id value of the pipeline deployment in the database", required = true)
     @Path("/undeployment")
     @APIResponses(value = {
             @APIResponse(responseCode = "201", description = "Successfully Requested Undeployment of Datacloud Pipeline",
@@ -98,6 +104,8 @@ public class DatacloudPipelineDeploymentResource {
 
     /* Request Pipeline Deployment Cancellation */
     @POST
+    @Operation(summary = "Request Deployment Cancellation of Datacloud Pipeline", description = "Send a request to cancel deployment of datacloud pipeline")
+    @Parameter(name = "pipelineDeploymentID", description = "The id value of the pipeline deployment in the database", required = true)
     @Path("/cancellation")
     @APIResponses(value = {
             @APIResponse(responseCode = "201", description = "Successfully Requested Deployment Cancellation of Datacloud Pipeline",

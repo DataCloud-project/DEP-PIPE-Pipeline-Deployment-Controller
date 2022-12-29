@@ -8,11 +8,13 @@ import eu.ubitech.utils.MaestroRestResponseDto;
 import io.vertx.core.http.HttpServerRequest;
 import lombok.extern.java.Log;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -36,6 +38,8 @@ public class DatacloudStepResource {
     /* Get Step */
     @GET
     @Path("/{id}")
+    @Operation(summary = "Fetch datacloud step", description = "Get a datacloud step by id")
+    @Parameter(name = "id", description = "The id value of the datacloud step in the database", required = true)
     @APIResponses(value = {
             @APIResponse(responseCode = "200", description = "Successfully Fetched Datacloud Step",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = MaestroRestResponseDto.class)
@@ -69,6 +73,7 @@ public class DatacloudStepResource {
 
     /* Create Step */
     @POST
+    @Operation(summary = "Create datacloud step", description = "Create a datacloud step")
     @APIResponses(value = {
             @APIResponse(responseCode = "201", description = "Successfully Created Datacloud Step",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = GenericMessageDto.class)
@@ -101,6 +106,7 @@ public class DatacloudStepResource {
 
     /* Update Step */
     @PUT
+    @Operation(summary = "Update datacloud step", description = "Update a datacloud step")
     @APIResponses(value = {
             @APIResponse(responseCode = "200", description = "Successfully Updated Datacloud Step",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = GenericMessageDto.class)
@@ -134,6 +140,8 @@ public class DatacloudStepResource {
     /* Delete Step */
     @DELETE
     @Path("/{id}")
+    @Operation(summary = "Delete datacloud step", description = "Delete a datacloud step by id")
+    @Parameter(name = "id", description = "The id value of the datacloud step in the database", required = true)
     @APIResponses(value = {
             @APIResponse(responseCode = "200", description = "Successfully Deleted Datacloud Step",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = GenericMessageDto.class)

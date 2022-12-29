@@ -9,12 +9,17 @@ quarkus:
     info-contact-name: UBITECH Ltd.
     info-contact-url: https://ubitech.eu/
   rest-client:
+    # Assuming Maestro is running on port 8080
     maestro-rest-api:
       url: http://localhost:8080/
       scope: javax.inject.Singleton
   swagger-ui:
     always-include: true
-
+  mongodb:
+    connection-string: mongodb://localhost:27017
+    database: providers
 maestro:
   auth:
-    token: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaXNzIjoib3JjaGVzdHJhdG9yLWFwcCIsImV4cCI6MTY3MjQ4NzQ1NywiaWF0IjoxNjcxNjIzNDU3LCJqdGkiOiI3OTQxZDY0Mi1mNGRkLTQzZDItOTllOS0yOTZiNTc5Mjg3MTcifQ.R-eAuNpF4sE-uJOSeESvNgkywGV3lt_q94L9ByrPUv8"
+    token: "<Add Maestro token here>"
+
+"%prod":

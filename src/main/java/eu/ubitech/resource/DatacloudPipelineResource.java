@@ -8,8 +8,10 @@ import eu.ubitech.utils.MaestroRestResponseDto;
 import io.vertx.core.http.HttpServerRequest;
 import lombok.extern.java.Log;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
@@ -36,6 +38,8 @@ public class DatacloudPipelineResource {
     /* Get Pipeline */
     @GET
     @Path("/{id}")
+    @Operation(summary = "Fetch datacloud pipeline", description = "Get a datacloud pipeline by id")
+    @Parameter(name = "id", description = "The id value of the datacloud pipeline in the database", required = true)
     @APIResponses(value = {
             @APIResponse(responseCode = "200", description = "Successfully Fetched Datacloud Pipeline",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = MaestroRestResponseDto.class)
@@ -69,6 +73,7 @@ public class DatacloudPipelineResource {
 
     /* Create Pipeline */
     @POST
+    @Operation(summary = "Create datacloud pipeline", description = "Create a datacloud pipeline")
     @APIResponses(value = {
             @APIResponse(responseCode = "201", description = "Successfully Created Datacloud Pipeline",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = GenericMessageDto.class)
@@ -101,6 +106,7 @@ public class DatacloudPipelineResource {
 
     /* Update Pipeline */
     @PUT
+    @Operation(summary = "Update datacloud pipeline", description = "Update a datacloud pipeline")
     @APIResponses(value = {
             @APIResponse(responseCode = "200", description = "Successfully Updated Datacloud Pipeline",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = GenericMessageDto.class)
@@ -133,6 +139,8 @@ public class DatacloudPipelineResource {
 
     /* Delete Pipeline */
     @DELETE
+    @Operation(summary = "Delete datacloud pipeline", description = "Delete a datacloud pipeline by id")
+    @Parameter(name = "id", description = "The id value of the datacloud pipeline in the database", required = true)
     @Path("/{id}")
     @APIResponses(value = {
             @APIResponse(responseCode = "200", description = "Successfully Deleted Datacloud Pipeline",
