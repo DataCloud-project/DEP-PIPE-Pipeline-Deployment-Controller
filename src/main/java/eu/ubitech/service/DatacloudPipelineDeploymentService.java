@@ -1,7 +1,6 @@
 package eu.ubitech.service;
 
 import eu.ubitech.clients.MaestroRestClient;
-import eu.ubitech.transfer.entities.DatacloudPipelineTo;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.enterprise.context.ApplicationScoped;

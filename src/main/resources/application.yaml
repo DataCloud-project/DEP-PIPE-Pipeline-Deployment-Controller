@@ -13,13 +13,80 @@ quarkus:
     maestro-rest-api:
       url: http://localhost:8080/
       scope: javax.inject.Singleton
+    defpipe-rest-api:
+      url: https://crowdserv.sys.kth.se/api/
+      scope: javax.inject.Singleton
   swagger-ui:
     always-include: true
+  oidc:
+    auth-server-url: https://datacloud-auth.euprojects.net/auth/realms/user-authentication
+    client-id: testclient
+    credentials:
+      secret: 82762617-1adf-440e-8e73-73e7f407f297
+    tls:
+      verification: none
+  oidc-client:
+    auth-server-url: https://datacloud-auth.euprojects.net/auth/realms/user-authentication
+    client-id: testclient
+    credentials:
+      secret: "<Add client secret here>"
+    grant:
+      type: password
+    grant-options:
+      password:
+        username: testuser
+        password: "<Add password here>"
+
   mongodb:
-    connection-string: mongodb://localhost:27017
-    database: providers
+    connection-string: mongodb://127.0.0.1:27017
+    database: datacloud
 maestro:
   auth:
-    token: "<Add Maestro token here>"
+    token: "<Add Maestro Token here>"
 
 "%prod":
+  quarkus:
+    http:
+      port: ${QUARKUS_HTTP_PORT}
+    tls:
+      trust-all: true
+    smallrye-openapi:
+      info-title: Datacloud
+      info-contact-email: info@ubitech.eu
+      info-contact-name: UBITECH Ltd.
+      info-contact-url: https://ubitech.eu/
+    rest-client:
+      # Assuming Maestro is running on port 8080
+      maestro-rest-api:
+        url: ${MAESTRO_REST_API_URL}
+        scope: javax.inject.Singleton
+      defpipe-rest-api:
+        url: ${DEFPIPE_REST_API_URL}
+        scope: javax.inject.Singleton
+    swagger-ui:
+      always-include: true
+    oidc:
+      auth-server-url: ${KEYCLOAK_AUTH_SERVER_URL}
+      client-id: ${KEYCLOAK_CLIENT_ID}
+      credentials:
+        secret: ${KEYCLOAK_CLIENT_SECRET}
+      tls:
+        verification: none
+    oidc-client:
+      auth-server-url: ${KEYCLOAK_AUTH_SERVER_URL}
+      client-id: ${KEYCLOAK_CLIENT_ID}
+      credentials:
+        secret: ${KEYCLOAK_CLIENT_SECRET}
+      grant:
+        type: password
+      grant-options:
+        password:
+          username: ${KEYCLOAK_GRANT_USERNAME}
+          password: ${KEYCLOAK_GRANT_PASSWORD}
+
+    mongodb:
+      connection-string: mongodb://127.0.0.1:${MONGODB_PORT}
+      database: datacloud
+  maestro:
+    auth:
+      token: ${MAESTRO_AUTH_TOKEN}

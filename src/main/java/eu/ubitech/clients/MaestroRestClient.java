@@ -31,6 +31,8 @@ public interface MaestroRestClient {
 
     @DELETE
     @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     void deletePipeline(@PathParam("id") Long id);
 
     @POST

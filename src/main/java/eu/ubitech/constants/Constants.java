@@ -19,10 +19,12 @@ public final class Constants implements Serializable {
     // DATACLOUD PIPELINE DEPLOYMENT REST API
     public static final String PIPELINE_DEPLOYMENT_REST_API = "/api/v1/datacloud/pipelinedeployment/{pipelineDeploymentID}/request";
 
+    // DEF-PIPE REST API
+    public static final String DEF_PIPE_REST_API = "/api/v1/defpipe";
+
     // AUTH TOKEN FIELD KEY
     public static String AUTH_TOKEN_COOKIE = "auth_token";
 
     // AUTH TOKEN FIELD VALUE EXTRACTION
     public static String AUTH_TOKEN_REGEX = "(?<=auth_token=).*?(?=;)";
-
 }

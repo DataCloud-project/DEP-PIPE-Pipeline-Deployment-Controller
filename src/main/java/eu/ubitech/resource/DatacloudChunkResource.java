@@ -21,8 +21,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.logging.Level;
 
-//TODO Add logging
 @Log
 @Path(Constants.CHUNK_REST_API)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -64,9 +64,11 @@ public class DatacloudChunkResource {
             MaestroRestResponseDto maestroRestResponseDto = res.readEntity(MaestroRestResponseDto.class);
             return Response.ok().entity(maestroRestResponseDto).build();
         } catch (WebApplicationException eb) {
+            log.log(Level.WARNING, eb.getMessage());
             MaestroRestResponseDto maestroRestResponseDto = eb.getResponse().readEntity(MaestroRestResponseDto.class);
             return Response.serverError().entity(new GenericMessageDto(maestroRestResponseDto.getMessage())).build();
         } catch (Exception e) {
+            log.log(Level.SEVERE, e.getMessage());
             return Response.serverError().entity(new GenericMessageDto(e.getMessage())).build();
         }
     }
@@ -97,9 +99,11 @@ public class DatacloudChunkResource {
             Response res = datacloudChunkService.createDatacloudChunk(authToken, datacloudChunkTo);
             return Response.ok().entity(new GenericMessageDto(GenericMessageDto.CHUNK_CREATED)).build();
         } catch (WebApplicationException eb) {
+            log.log(Level.WARNING, eb.getMessage());
             MaestroRestResponseDto maestroRestResponseDto = eb.getResponse().readEntity(MaestroRestResponseDto.class);
             return Response.serverError().entity(new GenericMessageDto(maestroRestResponseDto.getMessage())).build();
         } catch (Exception e) {
+            log.log(Level.SEVERE, e.getMessage());
             return Response.serverError().entity(new GenericMessageDto(e.getMessage())).build();
         }
     }
@@ -130,9 +134,11 @@ public class DatacloudChunkResource {
             Response res = datacloudChunkService.updateDatacloudChunk(authToken, datacloudChunkTo);
             return Response.ok().entity(new GenericMessageDto(GenericMessageDto.CHUNK_UPDATED)).build();
         } catch (WebApplicationException eb) {
+            log.log(Level.WARNING, eb.getMessage());
             MaestroRestResponseDto maestroRestResponseDto = eb.getResponse().readEntity(MaestroRestResponseDto.class);
             return Response.serverError().entity(new GenericMessageDto(maestroRestResponseDto.getMessage())).build();
         } catch (Exception e) {
+            log.log(Level.SEVERE, e.getMessage());
             return Response.serverError().entity(new GenericMessageDto(e.getMessage())).build();
         }
     }
@@ -165,9 +171,11 @@ public class DatacloudChunkResource {
             Response res = datacloudChunkService.deleteDatacloudChunk(authToken, id);
             return Response.ok().entity(new GenericMessageDto(GenericMessageDto.CHUNK_DELETED)).build();
         } catch (WebApplicationException eb) {
+            log.log(Level.WARNING, eb.getMessage());
             MaestroRestResponseDto maestroRestResponseDto = eb.getResponse().readEntity(MaestroRestResponseDto.class);
             return Response.serverError().entity(new GenericMessageDto(maestroRestResponseDto.getMessage())).build();
         } catch (Exception e) {
+            log.log(Level.SEVERE, e.getMessage());
             return Response.serverError().entity(new GenericMessageDto(e.getMessage())).build();
         }
     }

@@ -1,0 +1,40 @@
+version: '3.1'
+
+services:
+
+  datacloud-backend:
+    image: quarkus/datacloud-jvm
+    container_name: datacloud-backend
+    restart: unless-stopped
+    environment:
+      - "QUARKUS_HTTP_PORT:${QUARKUS_HTTP_PORT}"
+      - "MONGODB_PORT:${MONGODB_PORT}"
+      - "MAESTRO_REST_API_URL:${MAESTRO_REST_API_URL}"
+      - "DEFPIPE_REST_API_URL:${DEFPIPE_REST_API_URL}"
+      - "MAESTRO_AUTH_TOKEN:${MAESTRO_AUTH_TOKEN}"
+      - "KEYCLOAK_AUTH_SERVER_URL:${KEYCLOAK_AUTH_SERVER_URL}"
+      - "KEYCLOAK_CLIENT_ID:${KEYCLOAK_CLIENT_ID}"
+      - "KEYCLOAK_CLIENT_SECRET:${KEYCLOAK_CLIENT_SECRET}"
+      - "KEYCLOAK_GRANT_USERNAME:${KEYCLOAK_GRANT_USERNAME}"
+      - "KEYCLOAK_GRANT_PASSWORD:${KEYCLOAK_GRANT_PASSWORD}"
+    ports:
+      - "${QUARKUS_HTTP_PORT}:${QUARKUS_HTTP_PORT}"
+    depends_on:
+      - mongo
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:${QUARKUS_HTTP_PORT}/q/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  mongo:
+    image: mongo:4.4.12
+    container_name: datacloud-database
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo:/data/db
+
+volumes:
+  mongo:

@@ -11,17 +11,17 @@ The aim of this project is to develop an autonomous Datacloud Microservice that 
 
 The microservice exposes a set of REST API endpoints responsible for handling:
 
- 1. Steps (Create, Fetch by ID, Update, Delete)
+1. Steps (Create, Fetch by ID, Update, Delete)
 
- 2. Chunks (Create, Fetch by ID, Update, Delete)
+2. Chunks (Create, Fetch by ID, Update, Delete)
 
- 3. Pipelines (Create, Fetch by ID, Update, Delete)
+3. Pipelines (Create, Fetch by ID, Update, Delete)
 
- 4. Pipeline deployment requests (deployment, undeployment, cancellation)
+4. Pipeline deployment requests (deployment, undeployment, cancellation)
 
 The microservice communicates with MAESTRO to execute the requests.
 
- > The API endpoints are prune to changes until the finalization of the project, as also to support future possible functionalities.
+> The API endpoints are prune to changes until the finalization of the project, as also to support future possible functionalities.
 
 [//]: # (Translator of the descriptor provided by ADA-PIPE in order to be deployed through DEP-PIPE)
 

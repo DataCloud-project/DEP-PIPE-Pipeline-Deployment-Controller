@@ -18,8 +18,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.logging.Level;
 
-//TODO Add logging
 @Log
 @Path("/api/v1/datacloud/pipelinedeployment/{pipelineDeploymentID}/request")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -60,9 +60,11 @@ public class DatacloudPipelineDeploymentResource {
             Response res = datacloudPipelineDeploymentService.requestDatacloudPipelineDeployment(authToken, pipelineDeploymentID);
             return Response.ok().entity(new GenericMessageDto(GenericMessageDto.PIPELINE_DEPLOYMENT_REQUESTED)).build();
         } catch (WebApplicationException eb) {
+            log.log(Level.WARNING, eb.getMessage());
             MaestroRestResponseDto maestroRestResponseDto = eb.getResponse().readEntity(MaestroRestResponseDto.class);
             return Response.serverError().entity(new GenericMessageDto(maestroRestResponseDto.getMessage())).build();
         } catch (Exception e) {
+            log.log(Level.SEVERE, e.getMessage());
             return Response.serverError().entity(new GenericMessageDto(e.getMessage())).build();
         }
     }
@@ -95,9 +97,11 @@ public class DatacloudPipelineDeploymentResource {
             Response res = datacloudPipelineDeploymentService.requestDatacloudPipelineUndeployment(authToken, pipelineDeploymentID);
             return Response.ok().entity(new GenericMessageDto(GenericMessageDto.PIPELINE_UNDEPLOYMENT_REQUESTED)).build();
         } catch (WebApplicationException eb) {
+            log.log(Level.WARNING, eb.getMessage());
             MaestroRestResponseDto maestroRestResponseDto = eb.getResponse().readEntity(MaestroRestResponseDto.class);
             return Response.serverError().entity(new GenericMessageDto(maestroRestResponseDto.getMessage())).build();
         } catch (Exception e) {
+            log.log(Level.SEVERE, e.getMessage());
             return Response.serverError().entity(new GenericMessageDto(e.getMessage())).build();
         }
     }
@@ -130,9 +134,11 @@ public class DatacloudPipelineDeploymentResource {
             Response res = datacloudPipelineDeploymentService.requestDatacloudPipelineCancellation(authToken, pipelineDeploymentID);
             return Response.ok().entity(new GenericMessageDto(GenericMessageDto.PIPELINE_CANCELLATION_REQUESTED)).build();
         } catch (WebApplicationException eb) {
+            log.log(Level.WARNING, eb.getMessage());
             MaestroRestResponseDto maestroRestResponseDto = eb.getResponse().readEntity(MaestroRestResponseDto.class);
             return Response.serverError().entity(new GenericMessageDto(maestroRestResponseDto.getMessage())).build();
         } catch (Exception e) {
+            log.log(Level.SEVERE, e.getMessage());
             return Response.serverError().entity(new GenericMessageDto(e.getMessage())).build();
         }
     }
