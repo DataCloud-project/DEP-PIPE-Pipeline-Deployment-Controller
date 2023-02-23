@@ -3,22 +3,22 @@ version: '3.1'
 services:
 
   datacloud-backend:
-    image: quarkus/datacloud-jvm
+    image: registry.ubitech.eu/maestro/datacloud:1.0.2
     container_name: datacloud-backend
     restart: unless-stopped
     environment:
-      - "QUARKUS_HTTP_PORT:${QUARKUS_HTTP_PORT}"
-      - "MONGODB_PORT:${MONGODB_PORT}"
-      - "MAESTRO_REST_API_URL:${MAESTRO_REST_API_URL}"
-      - "DEFPIPE_REST_API_URL:${DEFPIPE_REST_API_URL}"
-      - "MAESTRO_AUTH_TOKEN:${MAESTRO_AUTH_TOKEN}"
-      - "KEYCLOAK_AUTH_SERVER_URL:${KEYCLOAK_AUTH_SERVER_URL}"
-      - "KEYCLOAK_CLIENT_ID:${KEYCLOAK_CLIENT_ID}"
-      - "KEYCLOAK_CLIENT_SECRET:${KEYCLOAK_CLIENT_SECRET}"
-      - "KEYCLOAK_GRANT_USERNAME:${KEYCLOAK_GRANT_USERNAME}"
-      - "KEYCLOAK_GRANT_PASSWORD:${KEYCLOAK_GRANT_PASSWORD}"
-    ports:
-      - "${QUARKUS_HTTP_PORT}:${QUARKUS_HTTP_PORT}"
+      QUARKUS_HTTP_PORT: ${QUARKUS_HTTP_PORT}
+      MONGODB_PORT: ${MONGODB_PORT}
+      MAESTRO_REST_API_URL: ${MAESTRO_REST_API_URL}
+      DEFPIPE_REST_API_URL: ${DEFPIPE_REST_API_URL}
+      BACKEND_AUTH_SERVER_URL: ${BACKEND_AUTH_SERVER_URL}
+      BACKEND_CLIENT_ID: ${BACKEND_CLIENT_ID}
+      BACKEND_CLIENT_SECRET: ${BACKEND_CLIENT_SECRET}
+      DEF_PIPE_AUTH_SERVER_URL: ${DEF_PIPE_AUTH_SERVER_URL}
+      DEF_PIPE_CLIENT_ID: ${DEF_PIPE_CLIENT_ID}
+      DEF_PIPE_CLIENT_SECRET: ${DEF_PIPE_CLIENT_SECRET}
+      DEF_PIPE_GRANT_USERNAME: ${DEF_PIPE_GRANT_USERNAME}
+      DEF_PIPE_GRANT_PASSWORD: ${DEF_PIPE_GRANT_PASSWORD}
     depends_on:
       - mongo
     healthcheck:
@@ -26,13 +26,14 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+    network_mode: "host"
 
   mongo:
-    image: mongo:4.4.12
+    image: registry.ubitech.eu/public-group/ubitech-public-registry/mongo:4.4.12
     container_name: datacloud-database
     restart: always
     ports:
-      - "27017:27017"
+      - "${MONGODB_PORT}:27017"
     volumes:
       - mongo:/data/db
 

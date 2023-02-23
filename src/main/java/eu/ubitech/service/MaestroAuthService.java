@@ -3,23 +3,33 @@ package eu.ubitech.service;
 import eu.ubitech.clients.MaestroRestClient;
 import eu.ubitech.constants.Constants;
 import eu.ubitech.utils.MaestroAuthDto;
-import io.quarkus.cache.CacheResult;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@ApplicationScoped
+@Singleton
 public class MaestroAuthService {
 
     @Inject
     @RestClient
     MaestroRestClient maestroRestClient;
 
-    @CacheResult(cacheName = "maestro-token-cache")
-    public String maestroAuthenticate(MaestroAuthDto maestroAuthDto) throws Exception {
+    @Inject
+    JsonWebToken jwt;
+
+    public String maestroAuthenticate() throws Exception {
+
+        String maestroAdminUsername = jwt.containsClaim("maestro_username") ?
+                jwt.getClaim("maestro_username") : null;
+        String maestroAdminPassword = jwt.containsClaim("maestro_password") ?
+                jwt.getClaim("maestro_password") : null;
+
+        MaestroAuthDto maestroAuthDto = new MaestroAuthDto(maestroAdminUsername, maestroAdminPassword);
+
         String authToken;
         Pattern authTokenPattern = Pattern.compile(Constants.AUTH_TOKEN_REGEX);
         String authTokenCookie = maestroRestClient.maestroAuthenticate(maestroAuthDto)

@@ -15,20 +15,43 @@ public class DatacloudStepService {
     @RestClient
     MaestroRestClient maestroRestClient;
 
-    public Response getDatacloudStep(String authToken, Long id) {
-        return maestroRestClient.getDatacloudStep(authToken, id);
+    @Inject
+    MaestroAuthService maestroAuthService;
+
+    public Response getDatacloudStep(Long id) {
+        try {
+            String authToken = maestroAuthService.maestroAuthenticate();
+            return maestroRestClient.getDatacloudStep(authToken, id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public Response createDatacloudStep(String authToken, DatacloudStepTo datacloudStepTo) {
-        return maestroRestClient.createDatacloudStep(authToken, datacloudStepTo);
+    public Response createDatacloudStep(DatacloudStepTo datacloudStepTo) {
+        try {
+            String authToken = maestroAuthService.maestroAuthenticate();
+            return maestroRestClient.createDatacloudStep(authToken, datacloudStepTo);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public Response updateDatacloudStep(String authToken, DatacloudStepTo datacloudStepTo) {
-        return maestroRestClient.updateDatacloudStep(authToken, datacloudStepTo);
+    public Response updateDatacloudStep(DatacloudStepTo datacloudStepTo) {
+        try {
+            String authToken = maestroAuthService.maestroAuthenticate();
+            return maestroRestClient.updateDatacloudStep(authToken, datacloudStepTo);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public Response deleteDatacloudStep(String authToken, Long id) {
-        return maestroRestClient.deleteDatacloudStep(authToken, id);
+    public Response deleteDatacloudStep(Long id) {
+        try {
+            String authToken = maestroAuthService.maestroAuthenticate();
+            return maestroRestClient.deleteDatacloudStep(authToken, id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

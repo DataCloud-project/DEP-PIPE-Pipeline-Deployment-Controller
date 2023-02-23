@@ -1,6 +1,9 @@
 quarkus:
   http:
     port: 9500
+    cors:
+      ~: true
+      origins: "*"
   tls:
    trust-all: true
   smallrye-openapi:
@@ -8,6 +11,9 @@ quarkus:
     info-contact-email: info@ubitech.eu
     info-contact-name: UBITECH Ltd.
     info-contact-url: https://ubitech.eu/
+    security-scheme: oauth2
+    security-scheme-name: Authentication token
+    security-scheme-description: Enter you your Keycloak bearer token
   rest-client:
     # Assuming Maestro is running on port 8080
     maestro-rest-api:
@@ -18,36 +24,38 @@ quarkus:
       scope: javax.inject.Singleton
   swagger-ui:
     always-include: true
+  # Securing the current backend
   oidc:
     auth-server-url: https://datacloud-auth.euprojects.net/auth/realms/user-authentication
-    client-id: testclient
+    client-id: datacloud-dep
     credentials:
-      secret: 82762617-1adf-440e-8e73-73e7f407f297
+      secret: "add client secret here"
     tls:
       verification: none
+# Authenticate rest-client fo def-pipe api
   oidc-client:
     auth-server-url: https://datacloud-auth.euprojects.net/auth/realms/user-authentication
     client-id: testclient
     credentials:
-      secret: "<Add client secret here>"
+      secret: "add client secrete here"
     grant:
       type: password
     grant-options:
       password:
         username: testuser
-        password: "<Add password here>"
-
+        password: "add password here"
+    tls:
+        verification: none
   mongodb:
     connection-string: mongodb://127.0.0.1:27017
     database: datacloud
-maestro:
-  auth:
-    token: "<Add Maestro Token here>"
-
 "%prod":
   quarkus:
     http:
-      port: ${QUARKUS_HTTP_PORT}
+      port: ${QUARKUS_HTTP_PORT:9500}
+      cors:
+        ~: true
+        origins: "*"
     tls:
       trust-all: true
     smallrye-openapi:
@@ -55,6 +63,9 @@ maestro:
       info-contact-email: info@ubitech.eu
       info-contact-name: UBITECH Ltd.
       info-contact-url: https://ubitech.eu/
+      security-scheme: oauth2
+      security-scheme-name: Authentication token
+      security-scheme-description: Enter you your Keycloak bearer token
     rest-client:
       # Assuming Maestro is running on port 8080
       maestro-rest-api:
@@ -66,27 +77,25 @@ maestro:
     swagger-ui:
       always-include: true
     oidc:
-      auth-server-url: ${KEYCLOAK_AUTH_SERVER_URL}
-      client-id: ${KEYCLOAK_CLIENT_ID}
+      auth-server-url: ${BACKEND_AUTH_SERVER_URL}
+      client-id: ${BACKEND_CLIENT_ID}
       credentials:
-        secret: ${KEYCLOAK_CLIENT_SECRET}
+        secret: ${BACKEND_CLIENT_SECRET}
       tls:
         verification: none
     oidc-client:
-      auth-server-url: ${KEYCLOAK_AUTH_SERVER_URL}
-      client-id: ${KEYCLOAK_CLIENT_ID}
+      auth-server-url: ${DEF_PIPE_AUTH_SERVER_URL}
+      client-id: ${DEF_PIPE_CLIENT_ID}
       credentials:
-        secret: ${KEYCLOAK_CLIENT_SECRET}
+        secret: ${DEF_PIPE_CLIENT_SECRET}
       grant:
         type: password
       grant-options:
         password:
-          username: ${KEYCLOAK_GRANT_USERNAME}
-          password: ${KEYCLOAK_GRANT_PASSWORD}
-
+          username: ${DEF_PIPE_GRANT_USERNAME}
+          password: ${DEF_PIPE_GRANT_PASSWORD}
+      tls:
+        verification: none
     mongodb:
       connection-string: mongodb://127.0.0.1:${MONGODB_PORT}
       database: datacloud
-  maestro:
-    auth:
-      token: ${MAESTRO_AUTH_TOKEN}

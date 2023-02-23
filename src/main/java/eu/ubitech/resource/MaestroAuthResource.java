@@ -5,6 +5,7 @@ import eu.ubitech.service.MaestroAuthService;
 import eu.ubitech.utils.GenericMessageDto;
 import eu.ubitech.utils.MaestroAuthDto;
 import eu.ubitech.utils.MaestroAuthTokenDto;
+import io.quarkus.security.Authenticated;
 import io.quarkus.security.UnauthorizedException;
 import lombok.extern.java.Log;
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -26,6 +27,7 @@ import javax.ws.rs.core.UriInfo;
 @Path(Constants.REST_API)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@Authenticated
 public class MaestroAuthResource {
 
 
@@ -34,6 +36,7 @@ public class MaestroAuthResource {
 
 
     // Authenticate with Maestro
+    // TODO remove Request Body
     @POST
     @Path("/auth")
     @Operation(summary = "Authenticate with maestro", description = "Request an access token to maestro service")
@@ -58,7 +61,7 @@ public class MaestroAuthResource {
     public Response maestroAuthenticate(@RequestBody MaestroAuthDto maestroAuthDto, @Context UriInfo uriInfo) {
 
         try {
-            String authToken = maestroAuthService.maestroAuthenticate(maestroAuthDto);
+            String authToken = maestroAuthService.maestroAuthenticate();
             return Response.ok().entity(new MaestroAuthTokenDto(authToken)).build();
         } catch (ForbiddenException fe) {
             log.warning(fe.getMessage());

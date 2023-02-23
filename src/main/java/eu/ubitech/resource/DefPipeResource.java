@@ -9,6 +9,7 @@ import eu.ubitech.transfer.WorkflowDto;
 import eu.ubitech.transfer.WorkflowTemplateDto;
 import eu.ubitech.utils.DefPipeRestResponseDto;
 import eu.ubitech.utils.GenericMessageDto;
+import io.quarkus.security.Authenticated;
 import lombok.extern.java.Log;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -28,6 +29,7 @@ import java.util.logging.Level;
 @Path(Constants.DEF_PIPE_REST_API)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@Authenticated
 public class DefPipeResource {
 
     @Inject

@@ -3,9 +3,9 @@ package eu.ubitech.resource;
 import eu.ubitech.service.DatacloudPipelineDeploymentService;
 import eu.ubitech.utils.GenericMessageDto;
 import eu.ubitech.utils.MaestroRestResponseDto;
+import io.quarkus.security.Authenticated;
 import io.vertx.core.http.HttpServerRequest;
 import lombok.extern.java.Log;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -21,16 +21,14 @@ import javax.ws.rs.core.Response;
 import java.util.logging.Level;
 
 @Log
-@Path("/api/v1/datacloud/pipelinedeployment/{pipelineDeploymentID}/request")
+@Path("/dc/api/v1/datacloud/pipelinedeployment/{pipelineDeploymentID}/request")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@Authenticated
 public class DatacloudPipelineDeploymentResource {
 
     @Inject
     DatacloudPipelineDeploymentService datacloudPipelineDeploymentService;
-
-    @ConfigProperty(name = "maestro.auth.token")
-    String authToken;
 
     /* Request Pipeline Deployment */
     @POST
@@ -57,7 +55,7 @@ public class DatacloudPipelineDeploymentResource {
     })
     public Response requestDeployment(@PathParam("pipelineDeploymentID") Long pipelineDeploymentID, @Context HttpServerRequest request) {
         try {
-            Response res = datacloudPipelineDeploymentService.requestDatacloudPipelineDeployment(authToken, pipelineDeploymentID);
+            Response res = datacloudPipelineDeploymentService.requestDatacloudPipelineDeployment(pipelineDeploymentID);
             return Response.ok().entity(new GenericMessageDto(GenericMessageDto.PIPELINE_DEPLOYMENT_REQUESTED)).build();
         } catch (WebApplicationException eb) {
             log.log(Level.WARNING, eb.getMessage());
@@ -94,7 +92,7 @@ public class DatacloudPipelineDeploymentResource {
     })
     public Response requestUndeployment(@PathParam("pipelineDeploymentID") Long pipelineDeploymentID, @Context HttpServerRequest request) {
         try {
-            Response res = datacloudPipelineDeploymentService.requestDatacloudPipelineUndeployment(authToken, pipelineDeploymentID);
+            Response res = datacloudPipelineDeploymentService.requestDatacloudPipelineUndeployment(pipelineDeploymentID);
             return Response.ok().entity(new GenericMessageDto(GenericMessageDto.PIPELINE_UNDEPLOYMENT_REQUESTED)).build();
         } catch (WebApplicationException eb) {
             log.log(Level.WARNING, eb.getMessage());
@@ -131,7 +129,7 @@ public class DatacloudPipelineDeploymentResource {
     })
     public Response requestCancellation(@PathParam("pipelineDeploymentID") Long pipelineDeploymentID, @Context HttpServerRequest request) {
         try {
-            Response res = datacloudPipelineDeploymentService.requestDatacloudPipelineCancellation(authToken, pipelineDeploymentID);
+            Response res = datacloudPipelineDeploymentService.requestDatacloudPipelineCancellation(pipelineDeploymentID);
             return Response.ok().entity(new GenericMessageDto(GenericMessageDto.PIPELINE_CANCELLATION_REQUESTED)).build();
         } catch (WebApplicationException eb) {
             log.log(Level.WARNING, eb.getMessage());

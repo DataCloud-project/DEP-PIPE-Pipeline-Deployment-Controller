@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   datacloud-backend:
-    image: quarkus/datacloud-jvm
+    image: registry.ubitech.eu/maestro/datacloud:1.0.2
     container_name: datacloud-backend
     restart: unless-stopped
     ports:
@@ -17,7 +17,7 @@ services:
       retries: 5
 
   mongo:
-    image: mongo:4.4.12
+    image: registry.ubitech.eu/public-group/ubitech-public-registry/mongo:4.4.12
     container_name: datacloud-database
     restart: always
     ports:

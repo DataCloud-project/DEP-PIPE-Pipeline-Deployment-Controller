@@ -5,9 +5,9 @@ import eu.ubitech.service.DatacloudChunkService;
 import eu.ubitech.transfer.entities.DatacloudChunkTo;
 import eu.ubitech.utils.GenericMessageDto;
 import eu.ubitech.utils.MaestroRestResponseDto;
+import io.quarkus.security.Authenticated;
 import io.vertx.core.http.HttpServerRequest;
 import lombok.extern.java.Log;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -27,13 +27,11 @@ import java.util.logging.Level;
 @Path(Constants.CHUNK_REST_API)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@Authenticated
 public class DatacloudChunkResource {
 
     @Inject
     DatacloudChunkService datacloudChunkService;
-
-    @ConfigProperty(name = "maestro.auth.token")
-    String authToken;
 
     /* Get Chunk */
     @GET
@@ -60,7 +58,7 @@ public class DatacloudChunkResource {
     })
     public Response fetchById(@PathParam("id") Long id, @Context HttpServerRequest request) {
         try {
-            Response res = datacloudChunkService.getDatacloudChunk(authToken, id);
+            Response res = datacloudChunkService.getDatacloudChunk(id);
             MaestroRestResponseDto maestroRestResponseDto = res.readEntity(MaestroRestResponseDto.class);
             return Response.ok().entity(maestroRestResponseDto).build();
         } catch (WebApplicationException eb) {
@@ -96,7 +94,7 @@ public class DatacloudChunkResource {
     })
     public Response create(@RequestBody DatacloudChunkTo datacloudChunkTo, @Context HttpServerRequest request) {
         try {
-            Response res = datacloudChunkService.createDatacloudChunk(authToken, datacloudChunkTo);
+            Response res = datacloudChunkService.createDatacloudChunk(datacloudChunkTo);
             return Response.ok().entity(new GenericMessageDto(GenericMessageDto.CHUNK_CREATED)).build();
         } catch (WebApplicationException eb) {
             log.log(Level.WARNING, eb.getMessage());
@@ -131,7 +129,7 @@ public class DatacloudChunkResource {
     })
     public Response update(@RequestBody DatacloudChunkTo datacloudChunkTo, @Context HttpServerRequest request) {
         try {
-            Response res = datacloudChunkService.updateDatacloudChunk(authToken, datacloudChunkTo);
+            Response res = datacloudChunkService.updateDatacloudChunk(datacloudChunkTo);
             return Response.ok().entity(new GenericMessageDto(GenericMessageDto.CHUNK_UPDATED)).build();
         } catch (WebApplicationException eb) {
             log.log(Level.WARNING, eb.getMessage());
@@ -168,7 +166,7 @@ public class DatacloudChunkResource {
     })
     public Response delete(@PathParam("id") Long id, @Context HttpServerRequest request) {
         try {
-            Response res = datacloudChunkService.deleteDatacloudChunk(authToken, id);
+            Response res = datacloudChunkService.deleteDatacloudChunk(id);
             return Response.ok().entity(new GenericMessageDto(GenericMessageDto.CHUNK_DELETED)).build();
         } catch (WebApplicationException eb) {
             log.log(Level.WARNING, eb.getMessage());

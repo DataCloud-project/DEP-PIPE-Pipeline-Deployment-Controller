@@ -13,15 +13,33 @@ public class DatacloudPipelineDeploymentService {
     @RestClient
     MaestroRestClient maestroRestClient;
 
-    public Response requestDatacloudPipelineDeployment(String authToken, Long pipelineDeploymentID) {
-        return maestroRestClient.requestDeployment(authToken, pipelineDeploymentID);
+    @Inject
+    MaestroAuthService maestroAuthService;
+
+    public Response requestDatacloudPipelineDeployment(Long pipelineDeploymentID) {
+        try {
+            String authToken = maestroAuthService.maestroAuthenticate();
+            return maestroRestClient.requestDeployment(authToken, pipelineDeploymentID);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public Response requestDatacloudPipelineUndeployment(String authToken, Long pipelineDeploymentID) {
-        return maestroRestClient.requestUndeployment(authToken, pipelineDeploymentID);
+    public Response requestDatacloudPipelineUndeployment(Long pipelineDeploymentID) {
+        try {
+            String authToken = maestroAuthService.maestroAuthenticate();
+            return maestroRestClient.requestUndeployment(authToken, pipelineDeploymentID);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public Response requestDatacloudPipelineCancellation(String authToken, Long pipelineDeploymentID) {
-        return maestroRestClient.requestCancellation(authToken, pipelineDeploymentID);
+    public Response requestDatacloudPipelineCancellation(Long pipelineDeploymentID) {
+        try {
+            String authToken = maestroAuthService.maestroAuthenticate();
+            return maestroRestClient.requestCancellation(authToken, pipelineDeploymentID);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

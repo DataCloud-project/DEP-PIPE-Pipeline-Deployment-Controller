@@ -14,19 +14,42 @@ public class DatacloudPipelineService {
     @RestClient
     MaestroRestClient maestroRestClient;
 
-    public Response getDatacloudPipeline(String authToken, Long id) {
-        return maestroRestClient.getDatacloudPipeline(authToken, id);
+    @Inject
+    MaestroAuthService maestroAuthService;
+
+    public Response getDatacloudPipeline(Long id) {
+        try {
+            String authToken = maestroAuthService.maestroAuthenticate();
+            return maestroRestClient.getDatacloudPipeline(authToken, id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public Response createDatacloudPipeline(String authToken, DatacloudPipelineTo datacloudPipelineTo) {
-        return maestroRestClient.createDatacloudPipeline(authToken, datacloudPipelineTo);
+    public Response createDatacloudPipeline(DatacloudPipelineTo datacloudPipelineTo) {
+        try {
+            String authToken = maestroAuthService.maestroAuthenticate();
+            return maestroRestClient.createDatacloudPipeline(authToken, datacloudPipelineTo);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public Response updateDatacloudPipeline(String authToken, DatacloudPipelineTo datacloudPipelineTo) {
-        return maestroRestClient.updateDatacloudPipeline(authToken, datacloudPipelineTo);
+    public Response updateDatacloudPipeline(DatacloudPipelineTo datacloudPipelineTo) {
+        try {
+            String authToken = maestroAuthService.maestroAuthenticate();
+            return maestroRestClient.updateDatacloudPipeline(authToken, datacloudPipelineTo);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public Response deleteDatacloudPipeline(String authToken, Long id) {
-        return maestroRestClient.deleteDatacloudPipeline(authToken, id);
+    public Response deleteDatacloudPipeline(Long id) {
+        try {
+            String authToken = maestroAuthService.maestroAuthenticate();
+            return maestroRestClient.deleteDatacloudPipeline(authToken, id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

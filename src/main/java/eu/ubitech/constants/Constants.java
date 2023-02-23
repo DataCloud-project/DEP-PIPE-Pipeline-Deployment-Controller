@@ -5,22 +5,22 @@ import java.io.Serializable;
 public final class Constants implements Serializable {
 
     // DATACLOUD REST API
-    public static final String REST_API = "/api/v1/datacloud";
+    public static final String REST_API = "/dc/api/v1/datacloud";
 
     // DATACLOUD STEP REST API
-    public static final String STEP_REST_API = "/api/v1/datacloud/step";
+    public static final String STEP_REST_API = "/dc/api/v1/datacloud/step";
 
     // DATACLOUD CHUNK REST API
-    public static final String CHUNK_REST_API = "/api/v1/datacloud/chunk";
+    public static final String CHUNK_REST_API = "/dc/api/v1/datacloud/chunk";
 
     // DATACLOUD PIPELINE REST API
-    public static final String PIPELINE_REST_API = "/api/v1/datacloud/pipeline";
+    public static final String PIPELINE_REST_API = "/dc/api/v1/datacloud/pipeline";
 
     // DATACLOUD PIPELINE DEPLOYMENT REST API
     public static final String PIPELINE_DEPLOYMENT_REST_API = "/api/v1/datacloud/pipelinedeployment/{pipelineDeploymentID}/request";
 
     // DEF-PIPE REST API
-    public static final String DEF_PIPE_REST_API = "/api/v1/defpipe";
+    public static final String DEF_PIPE_REST_API = "/dc/api/v1/defpipe";
 
     // AUTH TOKEN FIELD KEY
     public static String AUTH_TOKEN_COOKIE = "auth_token";
