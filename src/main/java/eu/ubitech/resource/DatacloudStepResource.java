@@ -95,7 +95,8 @@ public class DatacloudStepResource {
     public Response create(@RequestBody DatacloudStepTo datacloudStepTo, @Context HttpServerRequest request) {
         try {
             Response res = datacloudStepService.createDatacloudStep(datacloudStepTo);
-            return Response.ok().entity(new GenericMessageDto(GenericMessageDto.STEP_CREATED)).build();
+            MaestroRestResponseDto maestroRestResponseDto = res.readEntity(MaestroRestResponseDto.class);
+            return Response.ok().entity(maestroRestResponseDto).build();
         } catch (WebApplicationException eb) {
             log.log(Level.WARNING, eb.getMessage());
             MaestroRestResponseDto maestroRestResponseDto = eb.getResponse().readEntity(MaestroRestResponseDto.class);

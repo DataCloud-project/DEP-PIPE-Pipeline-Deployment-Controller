@@ -31,14 +31,16 @@ The exposed rest services are documented using the **OpenAPI v3.0.3** specificat
 
 ## **Project Setup and Usage**
 
-This project is built using **[Quarkus](https://quarkus.io/) Java Framework v2.15.1**. In order to run the application in development mode you will need **Java v11.0.15 or higher**, and **Maven version 3.8.6** or higher. Optionally, to produce native executable version you will need **GraalVM v22.2.0 or higher**.
+This project is built using **[Quarkus](https://quarkus.io/) Java Framework v2.16.9**. In order to run the application in development mode you will need **Java v11.0.15 or higher**, and **Maven version 3.8.6** or higher. Optionally, to produce native executable version you will need **GraalVM v22.2.0 or higher**.
 
 You can set project parameters in **src/main/resources/application.yaml** file:
 - *quarkus.http.port* sets the port in which the microservice
-
-- *maestro-rest-api.url* is the url in which the MAESTRO backend is running
+- *quarkus.rest-client.maestro-rest-api.url* is the url in which the MAESTRO backend is running
+- *quarkus.rest-cliend.defpipe-rest-api.url* is the url in which the DEF-PIPE backend is running
+- *quarkus.oidc.credentials.secret* the client secret of the backend client in keycloak
+- *quarkus.oidc-client.credentials.secret* is the client secret to interact with def-pipe
+- *quarkus.oidc-client.grant-options.password.password* the password of the user which uses the client
 - *mongodb.connection-string* is the url of the mongodb used in the microservice
-- *maestro.auth.token* sets the auth token for maestro backend
 
 ### Running the application in dev mode
 
@@ -79,10 +81,13 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 ./mvnw package -Pnative -Dquarkus.native.container-build=true
 ```
 
-You can then execute your native executable with: `./target/datacloud-1.0.0-SNAPSHOT-runner`
+You can then execute your native executable with: `./target/datacloud-{version}-runner`
 
 To learn more about building native executable see https://quarkus.io/guides/maven-tooling.
 
 ### Containerized version
 
-A containerized version of the project along with instructions will be soon available.
+There are two docker-compose files: 
+
+- *docker-compose.yml* which will use the dev profile properties of the project
+- *docker-compose.prod.yml* which can be used along with .env file (as one in .env.example) to set specifically the parametres of the project.

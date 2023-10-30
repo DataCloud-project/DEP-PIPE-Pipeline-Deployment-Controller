@@ -45,4 +45,23 @@ public class MaestroAuthService {
         return authToken;
     }
 
+    public String maestroAuthenticateWithCredentials(String username, String password) throws Exception {
+
+        String authToken;
+        Pattern authTokenPattern = Pattern.compile(Constants.AUTH_TOKEN_REGEX);
+        MaestroAuthDto maestroAuthDto = new MaestroAuthDto(username, password);
+        String authTokenCookie = maestroRestClient.maestroAuthenticate(maestroAuthDto)
+                .getCookies()
+                .get(Constants.AUTH_TOKEN_COOKIE).toString();
+        Matcher m = authTokenPattern.matcher(authTokenCookie);
+
+        if (m.find()) {
+            authToken = m.group();
+        } else {
+            throw new Exception("Authentication Token missing from cookie");
+        }
+        return authToken;
+
+    }
+
 }

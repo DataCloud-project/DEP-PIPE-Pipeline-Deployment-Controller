@@ -12,21 +12,22 @@ import java.util.Date;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CountryTo implements Serializable {
-
+public class OrganizationTO implements Serializable {
     private Long id;
     private String name;
-    private String alpha2;
-    private String alpha3;
-    private String countryCode;
-    private String iso3166;
-    private String region;
-    private String subRegion;
-    private String regionCode;
-    private String subRegionCode;
+    private String status;
+    private Integer usersCounter;
     private Date dateCreated;
+    private Date lastModified;
+    private Boolean allowEdit;
+    private Boolean allowDelete;
 
-    public CountryTo(String name) {
+    public OrganizationTO(Long id) {
+        this.id = id;
+    }
+
+    public OrganizationTO(Long id, String name) {
+        this.id = id;
         this.name = name;
     }
 }

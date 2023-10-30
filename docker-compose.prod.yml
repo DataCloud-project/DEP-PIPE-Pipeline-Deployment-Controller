@@ -3,7 +3,7 @@ version: '3.1'
 services:
 
   datacloud-backend:
-    image: registry.ubitech.eu/maestro/datacloud:1.0.2
+    image: registry.ubitech.eu/maestro/eu-projects/datacloud:1.1.1
     container_name: datacloud-backend
     restart: unless-stopped
     environment:
@@ -19,6 +19,14 @@ services:
       DEF_PIPE_CLIENT_SECRET: ${DEF_PIPE_CLIENT_SECRET}
       DEF_PIPE_GRANT_USERNAME: ${DEF_PIPE_GRANT_USERNAME}
       DEF_PIPE_GRANT_PASSWORD: ${DEF_PIPE_GRANT_PASSWORD}
+      KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
+      KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+      KEYCLOAK_URL: ${KEYCLOAK_URL}
+      KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
+      KEYCLOAK_ADMIN_USERNAME: ${KEYCLOAK_ADMIN_USERNAME}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KEYCLOAK_ADMIN_CLIENT: ${KEYCLOAK_ADMIN_CLIENT}
+      KEYCLOAK_ADMIN_REALM: ${KEYCLOAK_ADMIN_REALM}
     depends_on:
       - mongo
     healthcheck:

@@ -30,4 +30,19 @@ public class GenericMessageDto implements Serializable {
     public static final String PIPELINE_DEPLOYMENT_REQUESTED = "Datacloud pipeline deployment has been requested successfully";
     public static final String PIPELINE_UNDEPLOYMENT_REQUESTED = "Datacloud pipeline undeployment has been requested successfully";
     public static final String PIPELINE_CANCELLATION_REQUESTED = "Datacloud pipeline deployment cancellation has been requested successfully";
+    public static final String PROVIDER_FETCHED = "Datacloud provider has been fetched successfully";
+    public static final String PROVIDER_CREATED = "Datacloud provider has been created successfully";
+    public static final String PROVIDER_UPDATED = "Datacloud provider has been updated successfully";
+    public static final String PROVIDER_DELETED = "Datacloud provider has been deleted successfully";
+    public static final String PROVIDER_DEFAULT_STATUS_CHANGED = "Datacloud provider default status has changed successfully";
+    public static final String PROVIDER_LIST_FETCHED = "Datacloud provider list has been fetched successfully";
+    public static final String PROVIDER_LIST_FOR_DEPLOYMENT_FETCHED = "Datacloud provider list for deployment has been fetched successfully";
+    public static final String PROVIDER_TYPE_FETCHED = "Datacloud provider has been fetched successfully";
+    public static final String PROVIDER_TYPE_LIST_FETCHED = "Datacloud provider list has been fetched successfully";
+    public static final String KEYCLOAK_USER_CREATED = "Datacloud keycloak user has been created successfully";
+    public static final String DATACLOUD_USER_CREATED = "Datacloud DEP user has been created successfully";
+    public static final String KEYCLOAK_AND_DATACLOUD_USER_CREATED = "Keycloak and Datacloud DEP user has been created successfully";
+    public static final String STEP_NODE_INSTANCE_AFFINITY_CREATED = "Step node instance affinity created successfully ";
+    public static final String DATACLOUD_TOKEN_STORED = "Datacloud token has been stored successfully ";
+    public static final String DATACLOUD_TOKEN_RETRIEVED = "Datacloud token has been retrieved successfully";
 }

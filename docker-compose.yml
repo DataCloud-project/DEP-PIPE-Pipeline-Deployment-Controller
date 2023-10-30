@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   datacloud-backend:
-    image: registry.ubitech.eu/maestro/datacloud:1.0.2
+    image: registry.ubitech.eu/maestro/eu-projects/datacloud:1.1.1
     container_name: datacloud-backend
     restart: unless-stopped
     ports:
