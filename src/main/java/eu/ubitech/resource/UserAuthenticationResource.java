@@ -90,9 +90,9 @@ public class UserAuthenticationResource {
     })
     public Response loginDatacloudUser(@RequestBody UserLoginDto userLoginDto, @Context HttpServerRequest request) {
         try {
-            NewCookie cookie = userAuthenticationService.loginDatacloudUser(userLoginDto.getUsername(), userLoginDto.getPassword());
-            return Response.ok().entity(new GenericMessageDto(GenericMessageDto.DATACLOUD_USER_CREATED))
-                    .cookie(cookie).build();
+            String authToken = userAuthenticationService.loginDatacloudUser(userLoginDto.getUsername(), userLoginDto.getPassword());
+//            return Response.ok().entity(new GenericMessageDto(GenericMessageDto.DATACLOUD_USER_CREATED)).cookie(cookie).build();
+            return Response.ok().entity(authToken).build();
         } catch (WebApplicationException eb) {
             log.log(Level.WARNING, eb.getMessage());
             return Response.serverError().entity(new GenericMessageDto(eb.getMessage())).build();
@@ -125,12 +125,12 @@ public class UserAuthenticationResource {
     })
     public Response loginKeycloakAndDatacloudUser(@RequestBody UserLoginDto userLoginDto, @Context HttpServerRequest request) {
         try {
-             NewCookie cookie = userAuthenticationService.loginDatacloudUser(userLoginDto.getUsername(), userLoginDto.getPassword());
-             KeycloakAuthTokenDto keycloakAuthTokenDto = userAuthenticationService.loginKeycloakUser(userLoginDto.getUsername(), userLoginDto.getPassword());
-            // TODO consider using service function for concurrent login
+            String authToken = userAuthenticationService.loginDatacloudUser(userLoginDto.getUsername(), userLoginDto.getPassword());
+            KeycloakAuthTokenDto keycloakAuthTokenDto = userAuthenticationService.loginKeycloakUser(userLoginDto.getUsername(), userLoginDto.getPassword());
+//             TODO consider using service function for concurrent login
 //            NewCookie cookie = userAuthenticationService.loginKeycloakAndDatacloudUser(userLoginDto.getUsername(), userLoginDto.getPassword());
-            return Response.ok()
-                    .cookie(cookie).build();
+//            return Response.ok().cookie(cookie).build();
+            return Response.ok().entity(authToken).build();
         } catch (WebApplicationException eb) {
             log.log(Level.WARNING, eb.getMessage());
             return Response.serverError().entity(new GenericMessageDto(eb.getMessage())).build();
@@ -139,6 +139,4 @@ public class UserAuthenticationResource {
             return Response.serverError().entity(new GenericMessageDto(e.getMessage())).build();
         }
     }
-
-
 }

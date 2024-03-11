@@ -4,6 +4,9 @@ quarkus:
     cors:
       ~: true
       origins: "*"
+#    same-site-cookie:
+#      auth_token:
+#        value: none
   tls:
    trust-all: true
   smallrye-openapi:
@@ -27,28 +30,28 @@ quarkus:
   # Securing the current backend
   oidc:
     auth-server-url: https://datacloud-auth.euprojects.net/auth/realms/user-authentication
-    client-id: datacloud-dep
+    client-id: %CLIENTID%
     credentials:
-      secret: "add client secret here"
+      secret: %SECRET%
     tls:
       verification: none
 # Authenticate rest-client fo def-pipe api
   oidc-client:
     auth-server-url: https://datacloud-auth.euprojects.net/auth/realms/user-authentication
-    client-id: testclient
+    client-id: %CLIENTID%
     credentials:
-      secret: "add client secrete here"
+      secret: %SECRET%
     grant:
       type: password
     grant-options:
       password:
-        username: testuser
-        password: "add password here"
+        username: %USER%
+        password: %PASSWORD%
     tls:
         verification: none
   mongodb:
     connection-string: mongodb://127.0.0.1:27017
-    database: datacloud
+    database: %DATABASE%
 "%prod":
   quarkus:
     http:
@@ -98,4 +101,4 @@ quarkus:
         verification: none
     mongodb:
       connection-string: mongodb://127.0.0.1:${MONGODB_PORT}
-      database: datacloud
+      database: %DATABASE%

@@ -5,7 +5,7 @@
 
 # **DEP-PIPE Translator**
 
-The aim of this project is to develop an autonomous Datacloud Microservice that provides the essential tools and operations for handling Steps, Chunks, Pipelines and Pipeline deployments.
+The aim of this project is to develop an autonomous Datacloud Microservice that provides the essential tools and operations for handling Steps, Chunks, Pipelines, Pipeline deployments, Providers, Provider Types, User Authentication and Registration, Maestro Authentication, K8s Cluster Labels.
 
 ### Functionalities
 
@@ -19,9 +19,20 @@ The microservice exposes a set of REST API endpoints responsible for handling:
 
 4. Pipeline deployment requests (deployment, undeployment, cancellation)
 
+5. Providers (Create, Fetch by ID, Update, Delete, List, List for Deployment)
+
+6. Provider Types (Fetch by ID, list)
+
+7. User Authentication(Keycloak Login, DEP-PIPE Login, Global Login)
+
+8. User Registration(Keycloak registration, DEP-PIPE registration, Global Registration)
+
+9. Maestro Authentication(Generate access token)
+
+10. K8s Cluster labels(Fetch by Provider ID, Create step node instance affinity)
+
 The microservice communicates with MAESTRO to execute the requests.
 
-> The API endpoints are prune to changes until the finalization of the project, as also to support future possible functionalities.
 
 [//]: # (Translator of the descriptor provided by ADA-PIPE in order to be deployed through DEP-PIPE)
 
@@ -29,9 +40,14 @@ The microservice communicates with MAESTRO to execute the requests.
 
 The exposed rest services are documented using the **OpenAPI v3.0.3** specification and **Swagger UI**. The project ships with a Documentation UI page under http://PROJECT_IP:PROJECT_PORT/q/swagger-ui, where PROJECT_IP and PROJECT_PORT correspond to the parameters used to run the microservice (e.g. http://localhost:9500/q/swagger-ui)
 
+<img src="img/swagger_datacloud_microservice.png" width="auto">
+
+<br/>
+
+
 ## **Project Setup and Usage**
 
-This project is built using **[Quarkus](https://quarkus.io/) Java Framework v2.16.9**. In order to run the application in development mode you will need **Java v11.0.15 or higher**, and **Maven version 3.8.6** or higher. Optionally, to produce native executable version you will need **GraalVM v22.2.0 or higher**.
+This project is built using **[Quarkus](https://quarkus.io/) Java Framework v2.16.9**. In order to run the application in development mode you will need **Java v11**, and **Maven version 3.8.6** or higher. Optionally, to produce native executable version you will need **GraalVM v22.2.0 or higher**.
 
 You can set project parameters in **src/main/resources/application.yaml** file:
 - *quarkus.http.port* sets the port in which the microservice
@@ -41,6 +57,7 @@ You can set project parameters in **src/main/resources/application.yaml** file:
 - *quarkus.oidc-client.credentials.secret* is the client secret to interact with def-pipe
 - *quarkus.oidc-client.grant-options.password.password* the password of the user which uses the client
 - *mongodb.connection-string* is the url of the mongodb used in the microservice
+- *mongodb.database* is the url of the mongodb used in the microservice
 
 ### Running the application in dev mode
 
